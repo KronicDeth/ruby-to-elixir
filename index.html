@@ -134,9 +134,8 @@
                         <aside class="notes">
                             The output of a mathematical function depends only only on its inputs.  This makes
                             mathematical functions easier to reason about because you can just substitute the output
-                            for the function call.  Having immutable data allows data to be safely shared between
-                            parallel threads.  Pure functional languages, like Haskell completely avoid changing state
-                            by encapsulating state changes in their data, but Erlang and Elixir are not pure like
+                            for the function call. Pure functional languages, like Haskell completely avoid changing
+                            state by encapsulating state changes in their data, but Erlang and Elixir are not pure like
                             Haskell.
                         </aside>
                     </section>
@@ -146,6 +145,11 @@
                             <li>Lack of shared, mutable state</li>
                             <li>Immutable data</li>
                         </ul>
+                        <aside class="notes">
+                            Immutable data means you don't have to worry about a function call changing your copy of
+                            the arguments you pass to it.  Extending this across parallel threads, it means you don't
+                            have to worry about race conditions and other threading bugs.
+                        </aside>
                     </section>
                     <section>
                         <h1>(Perceived) disadvantages</h1>
