@@ -293,7 +293,7 @@
                         <h1>Why Elixir and not Erlang?</h1>
                         <ul>
                             <li><a href="#/metaprogramming">Metaprogramming</a></li>
-                            <li>Polymorphism</li>
+                            <li><a href="#/polymorphism">Polymorphism</a></li>
                             <li>Tooling</li>
                         </ul>
                     </section>
@@ -386,20 +386,63 @@ end
 MimeTypes.is_valid?("application/vnd.exn") #=> false
 MimeTypes.is_valid?("application/json")    #=> true
                         </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Here, we download the list of know mime-types and create functions that match the known names.
+                                This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
+                                and parse a file at runtime.
+                            </p>
+                            <p>
+                                This approach is also used to enable Elixir to have full Unicode
+                                support including proper support graphemes vs codepoints, such as when the accent is separate
+                                from the character being accented.  Ruby doesn't handle this part of Unicode correctly, which
+                                may become important as meterpreter adds unicode support.
+                            </p>
+                        </aside>
                     </section>
-                    <aside class="notes">
-                        <p>
-                            Here, we download the list of know mime-types and create functions that match the known names.
-                            This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
-                            and parse a file at runtime.
-                        </p>
-                        <p>
-                            This approach is also used to enable Elixir to have full Unicode
-                            support including proper support graphemes vs codepoints, such as when the accent is separate
-                            from the character being accented.  Ruby doesn't handle this part of Unicode correctly, which
-                            may become important as meterpreter adds unicode support.
-                        </p>
-                    </aside>
+                </section>
+                <section class="stack">
+                    <section id="polymorphism">
+                        <h1>Protocols</h1>
+                        <ul>
+                            <li>Allow extending functions to support new types</li>
+                            <li>Support for protocol is separate from type definition</li>
+                        </ul>
+                        <aside class="notes">
+                            In Ruby, we could monkey patch a class to support new methods.  In Java, reflection would
+                            have to be used to add new methods to a pre-existing class or a method would need to be
+                            implemented from an interface.  In Elixir, protocols can be defined that expose new methods
+                            and then implementations of that protocol can be registered for different types, but
+                            importantly, the protocol and type don't need to know about each other.  The implementation
+                            can be done independently and Elixir will look it up and call it when using the protocol.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Blank.blank?</h1>
+                        <pre><code data-trim>
+defprotocol Blank do
+  @doc "Returns true if data is considered blank/empty"
+  def blank?(data)
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# Integers are never blank
+defimpl Blank, for: Integer do
+  def blank?(_), do: false
+end
+
+# Just empty list is blank
+defimpl Blank, for: List do
+  def blank?([]), do: true
+  def blank?(_),  do: false
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Rails developers will recognize <code>blank?</code> from <code>ActiveSupport</code>.  In
+                            Ruby, ActiveSupport must open up each class and add the <code>blank?</code> method to it,
+                            but in Elixir we define separate implementation for each type.
+                        </aside>
+                    </section>
                 </section>
                 <section class="stack">
                     <section id="wow">
