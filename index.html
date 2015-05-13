@@ -300,7 +300,43 @@
                 </section>
                 <section class="stack">
                     <section id="metaprogramming">
-                        <h1>Metaprogramming</h1>
+                        <h1>Erlang Macros vs Elixir Macros</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Erlang</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Run when?</td>
+                                <td>Preprocess</td>
+                                <td>Compile</td>
+                            </tr>
+                            <tr>
+                                <td>Code generation</td>
+                                <td>String substitution</td>
+                                <td>AST manipulation</td>
+                            </tr>
+                            <tr>
+                                <td>Language Features</td>
+                                <td>Functions with Arguments</td>
+                                <td>Full</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            When programming Ruby, we're used to being able to use blocks with class-level methods to
+                            call and write DSLs to define code for us.  In Erlang, the macros can only do string
+                            substitution like the C preprocessor, but Elixir gives access to the full language and
+                            allows manipulating the Abstract Syntax Tree, which means we can delay execution just like
+                            passing blocks in Ruby.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Elixir Macros</h1>
                         <pre><code data-trim>
 defmodule ElixirLunchAndLearnTest do
   use ExUnit.Case
@@ -352,11 +388,17 @@ MimeTypes.is_valid?("application/json")    #=> true
                         </code></pre>
                     </section>
                     <aside class="notes">
-                        Here, we download the list of know mime-types and create functions that match the known names.
-                        This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
-                        and parse a file at runtime.  This approach is also used to enable Elixir to have full Unicode
-                        support including proper support graphemes vs codepoints, such as when the accent is separate
-                        from the character being accented.  Ruby doesn't handle this part of Unicode correctly.
+                        <p>
+                            Here, we download the list of know mime-types and create functions that match the known names.
+                            This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
+                            and parse a file at runtime.
+                        </p>
+                        <p>
+                            This approach is also used to enable Elixir to have full Unicode
+                            support including proper support graphemes vs codepoints, such as when the accent is separate
+                            from the character being accented.  Ruby doesn't handle this part of Unicode correctly, which
+                            may become important as meterpreter adds unicode support.
+                        </p>
                     </aside>
                 </section>
                 <section class="stack">
