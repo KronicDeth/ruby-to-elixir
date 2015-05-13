@@ -144,6 +144,7 @@
                         <ul>
                             <li>Lack of shared, mutable state</li>
                             <li>Immutable data</li>
+                            <li></li>
                         </ul>
                         <aside class="notes">
                             Immutable data means you don't have to worry about a function call changing your copy of
@@ -159,6 +160,44 @@
                             <li>Recursion + accumulation harder than iteration and mutation</li>
                             <li>It's not how I think</li>
                         </ul>
+                        <aside class="notes">
+                            <p>
+                                Functional languages originated from Church's lambda calculus which is super cryptic
+                                with only have &lambda;, <code>x</code>, and <code>.</code>.  Other functional languages
+                                include the Lisps, including Scheme and Clojure with their different use of parentheses.
+                                Haskell's syntax abstracts types and function arguments/returns.
+                            </p>
+                            <p>
+                                Comes from an imperative and object orientated background we're so used to immutability
+                                that we think of it as normal even though when we first learned it, mutability was odd
+                                compared to math's fixed values for variables and pure function.
+                            </p>
+                            <p>
+                                Because most languages don't support tail call optimization or the lesser tail call
+                                recursion, we've been trained to reach for the iterative solution to avoid stack
+                                overflows, but a lot of problems in computing have much nicer recursive solutions.
+                            </p>
+                            <p>
+                                Just as you learned imperative programming over mathematical thinking, you can retrain
+                                to think in functional languages and even switch back and forth.  I currently switch
+                                between Java, Ruby, and Elixir.  Without only a few hiccups on namespace syntax and
+                                string quoting.  If you're used to using <code>map</code> or <code>select</code> from
+                                <code>Enumerable</code> in Ruby or the lambda expression features in Java 8, you are
+                                already using functional programming.
+                            </p>
+                            <p>
+                                Learning functional programming will also prepare us for the future.  If you watch
+                                conference talks in other langauges, such as Javascript or C++, languages are moving to
+                                have more and more functional features as the programming community adapts to the
+                                many-cores future.  They have figured out that locks, threads, and shared mutable
+                                state is too error prone.
+                            </p>
+                            <p>
+                                Moore's law increasing processor speed stopped 10 years ago. If you want to take
+                                advantage of Moore's law now and in the future you need to write concurrent programs now
+                                that can be parallelized across the additional cores of the future automatically.
+                            </p>
+                        </aside>
                     </section>
                 </section>
                 <section class="stack">
