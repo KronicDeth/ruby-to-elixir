@@ -126,6 +126,19 @@
                     </section>
                     <section>
                         <h1>What is a functional language?</h1>
+                        <ul>
+                            <li>Mathematical functions</li>
+                            <li>Avoids changing state</li>
+                            <li>Immutable data</li>
+                        </ul>
+                        <aside class="notes">
+                            The output of a mathematical function depends only only on its inputs.  This makes
+                            mathematical functions easier to reason about because you can just substitute the output
+                            for the function call.  Having immutable data allows data to be safely shared between
+                            parallel threads.  Pure functional languages, like Haskell completely avoid changing state
+                            by encapsulating state changes in their data, but Erlang and Elixir are not pure like
+                            Haskell.
+                        </aside>
                     </section>
                     <section>
                         <h1>Advantages of functional languages</h1>
