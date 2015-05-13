@@ -162,30 +162,35 @@
                         <aside class="notes">
                             <p>
                                 Functional languages originated from Church's lambda calculus which is super cryptic
-                                with only have &lambda;, <code>x</code>, and <code>.</code>.  Other functional languages
-                                include the Lisps, including Scheme and Clojure with their different use of parentheses.
-                                Haskell's syntax abstracts types and function arguments/returns.
+                                with only &lambda;, <code>x</code>, and <code>.</code>.  Other functional languages
+                                like the Lisps, including Scheme and Clojure, use more parentheses than most people are
+                                comfortable with. Haskell's syntax abstracts types and function arguments/returns and
+                                drops parantheses.
                             </p>
                             <p>
-                                Comes from an imperative and object orientated background we're so used to immutability
+                                Coming from an imperative and object oriented background we're so used to mutability
                                 that we think of it as normal even though when we first learned it, mutability was odd
-                                compared to math's fixed values for variables and pure function.
+                                compared to math's fixed values for variables and pure functions.
                             </p>
                             <p>
                                 Because most languages don't support tail call optimization or the lesser tail call
                                 recursion, we've been trained to reach for the iterative solution to avoid stack
                                 overflows, but a lot of problems in computing have much nicer recursive solutions.
+                                With general tail call optimization, loops involving more than one function can be
+                                represented in what would look like recursion.
                             </p>
                             <p>
                                 Just as you learned imperative programming over mathematical thinking, you can retrain
                                 to think in functional languages and even switch back and forth.  I currently switch
-                                between Java, Ruby, and Elixir.  Without only a few hiccups on namespace syntax and
+                                between Java, Ruby, and Elixir.  With only a few hiccups on namespace syntax and
                                 string quoting.  If you're used to using <code>map</code> or <code>select</code> from
                                 <code>Enumerable</code> in Ruby or the lambda expression features in Java 8, you are
-                                already using functional programming.
+                                already using functional programming.  If you ever used class methods in Ruby that
+                                didn't write to class or instance variable.  Or, if you ever used static methods in
+                                Java.  You're already using functional programming.
                             </p>
                             <p>
-                                Learning functional programming will also prepare us for the future.  If you watch
+                                Learning functional programming will also prepare you for the future.  If you watch
                                 conference talks in other langauges, such as Javascript or C++, languages are moving to
                                 have more and more functional features as the programming community adapts to the
                                 many-cores future.  They have figured out that locks, threads, and shared mutable
