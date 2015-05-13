@@ -238,7 +238,31 @@
                             <li>Concurrency model is simple, but powerful</li>
                         </ul>
                         <aside class="notes">
-                            "Let it Crash".  Supervisors and gen_server.
+                            <p>
+                                Erlang is know for it's "Let It Crash!" motto, but letting code crash in the face of
+                                software and hardware exceptions is not exactly what it means. Instead, Erlang supplies
+                                VM-level processes.  In other languages, such as Ruby these would be green-threads,
+                                which would be bad for performance and scheduling, but because Erlang is immutable, each
+                                green-thread is completely isolated from the other green-threads, so much like OS
+                                processes, the name process is apt because if an Erlang process crashes, just killing it
+                                will clean everything up.
+                            </p>
+                            <p>
+                                If a process is killed when it crashes how is state maintained?  Well, Erlang processes
+                                can monitor each other so if one process crashes another is notified.  This pattern is
+                                so useful that OTP, Erlang's standard library has a behavior (think abstract class or
+                                interface) called a supervisor that monitors a process and restarts it when it dies.
+                            </p>
+                            <p>
+                                Inside each process, code is written sequentially.  Processes communicate with each
+                                other only by passing immutable messages.  This makes Erlang processes closer to the
+                                idea for objects described in Alan Kay's original papers than objects in most
+                                current Object-Oriented languages like Ruby.
+                            </p>
+                            <p>
+                                Processes receive messages from a mailbox, which can be addressed even remotely if you
+                                know the name.
+                            </p>
                         </aside>
                     </section>
                     <section>
