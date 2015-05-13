@@ -292,11 +292,72 @@
                     <section id="why-elixir-and-not-erlang">
                         <h1>Why Elixir and not Erlang?</h1>
                         <ul>
-                            <li>Metaprogramming</li>
+                            <li><a href="#/metaprogramming">Metaprogramming</a></li>
                             <li>Polymorphism</li>
                             <li>Tooling</li>
                         </ul>
                     </section>
+                </section>
+                <section class="stack">
+                    <section id="metaprogramming">
+                        <h1>Metaprogramming</h1>
+                        <pre><code data-trim>
+defmodule ElixirLunchAndLearnTest do
+  use ExUnit.Case
+
+  test "the truth" do
+    assert 1 + 1 != 2
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Looking at this, it looks a lot like a DSL for ruby with <code>do</code>do blocks, but
+                            <code>defmodule</code> is not a keyword in Elixir equivalent to <code>module</code> in Ruby
+                            or <code>class</code> in Java, instead <code>defmodule</code> is a macro. Defined as normal
+                            Elixir code that is run at compile time. The same with `use`, `test`, and `assert`.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Capture Code</h1>
+                        <img src="images/macros.png"/>
+                        <aside class="notes">
+                            With macros Elixir can do what most languages do with keywords, but those macros can
+                            manipulate other code.  For example, the line with <code>assert</code> is able to give the
+                            actual code run that got the error.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Compile Data into Code</h2>
+                        <pre class="stretch"><code data-trim>
+defmodule MimeTypes do
+  HTTPotion.start
+  HTTPotion.Response[body: body] = HTTPotion.get(
+    "http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types"
+  )
+
+  Enum.each String.split(body, %r/\n/), fn (line) ->
+    unless line == "" or line =~ %r/^#/ do
+      [ mimetype | _exts ] = String.split(line)
+
+
+      def is_valid?(unquote(mimetype)), do: true
+    end
+  end
+
+  def is_valid?(_mimetype), do: false
+end
+
+MimeTypes.is_valid?("application/vnd.exn") #=> false
+MimeTypes.is_valid?("application/json")    #=> true
+                        </code></pre>
+                    </section>
+                    <aside class="notes">
+                        Here, we download the list of know mime-types and create functions that match the known names.
+                        This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
+                        and parse a file at runtime.  This approach is also used to enable Elixir to have full Unicode
+                        support including proper support graphemes vs codepoints, such as when the accent is separate
+                        from the character being accented.  Ruby doesn't handle this part of Unicode correctly.
+                    </aside>
                 </section>
                 <section class="stack">
                     <section id="wow">
