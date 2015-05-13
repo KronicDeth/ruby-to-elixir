@@ -294,10 +294,108 @@
                     <section id="why-elixir-and-not-erlang">
                         <h1>Why Elixir and not Erlang?</h1>
                         <ul>
+                            <li><a href="#/tooling">Tooling</a></li>
                             <li><a href="#/metaprogramming">Metaprogramming</a></li>
                             <li><a href="#/polymorphism">Polymorphism</a></li>
-                            <li>Tooling</li>
                         </ul>
+                    </section>
+                </section>
+                <section>
+                    <section id="tooling">
+                        <h1>Tooling</h1>
+                        <ul>
+                            <li><a href="#/mix">mix</a></li>
+                            <li><a href="#/ex_unit">ExUnit</a></li>
+                            <li><a href="#/ex_doc">ExDoc</a></li>
+                        </ul>
+                    </section>
+                    <section id="mix">
+                        <h1>Mix</h1>
+                        <h2>Rake + Bundler</h2>
+                        <ul>
+                            <li>Create projects</li>
+                            <li>Manages dependencies</li>
+                            <li>Compiles code and dependencies</li>
+                            <li>Runs tests</li>
+                        </ul>
+                        <aside class="notes">
+                            The Erlang ecosystem for build tools is split between 3 different tools.  It has no package
+                            manager or package repository like rubygems.org.  Elixir on the other hand has
+                            <code>mix</code> for managing dependencies and <code>hex.pm</code> for package hosting.
+                            <code>hex</code> has caught on so well, the next generation Erlang build tool,
+                            <code>rebar3</code> will support <code>hex</code> packages.
+                        </aside>
+                    </section>
+                    <section id="ex_unit">
+                        <h1>ExUnit</h1>
+                        <h2>Unit Testing</h2>
+                        <ul>
+                            <li>Adds <code>mix test</code></li>
+                            <li>Defines DSL for defining tests</li>
+                            <li>Defines DSL for checking results</li>
+                        </ul>
+                        <aside class="notes">
+                            <code>ExUnit</code> test definition test looks like RSpec, but it uses asserts like Minitest.
+                        </aside>
+                    </section>
+                    <section id="ex_doc">
+                        <h1>ExDoc</h1>
+                        <ul>
+                            <li>Documentation is a first class feature of Elixir</li>
+                            <li>Documentation examples can be tested with ExUnit's <code>doctest</code></li>
+                            <li>Documentation can be hosts on <a href="http://hexdocs.pm">hexdocs.pm</a></li>
+                        </ul>
+                        <aside class="notes">
+                            Go to next slides to explain each point with example code.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre class="stretch"><code data-trim>
+defmodule Atom do
+  @moduledoc """
+  Convenience functions for working with atoms.
+  See also `Kernel.is_atom/1`.
+  """
+
+  @doc """
+  Converts an atom to a string.
+
+  Inlined by the compiler.
+
+  ## Examples
+
+      iex> Atom.to_string(:foo)
+      "foo"
+  """
+  @spec to_string(atom) :: String.t
+  def to_string(atom) do
+    :erlang.atom_to_binary(atom, :utf8)
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Modules can be documented with <code>@moduledoc</code>.  Functions can be documented with
+                                <code>@doc</code>.  Neither of these are keywords, but instead the <code>@</code>
+                                variables are Module attributes, which are used like constants in Elixir.  Because the
+                                documentation isn't comments, but stored in variable it can be retrieved from the
+                                running system.  In fact, you can <code>h Atom.to_string</code> to get the function doc
+                                in <code>iex</code>
+                            </p>
+                            <p>
+                                The indented example that starts with <code>iex></code> will be detected by
+                                <code>doctest</code> in ExUnit and the example will be checked for correctness.
+                            </p>
+                            <p>
+                                Retrieving documentation for running code instead of a separate, preprocessed output
+                                isn't possible in Ruby and testing documentation examples is only possible with YARD
+                                plugins.
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Tool Demo</h1>
+                        <script type="text/javascript" src="https://asciinema.org/a/20038.js" id="asciicast-20038" async></script>
                     </section>
                 </section>
                 <section class="stack">
