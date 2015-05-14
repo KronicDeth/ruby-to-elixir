@@ -115,6 +115,7 @@
                     <ol>
                         <li><a href="#/functional-languages">Functional Languages</a></li>
                         <li><a href="#/erlang">Erlang</a></li>
+                        <li><a href="#/elixir">Elixir</a></li>
                         <li><a href="#/why-elixir-and-not-erlang">Why Elixir and not Erlang?</a></li>
                         <li><a href="#/wow">Wow!</a></li>
                         <li><a href="#/resources">Resources</a></li>
@@ -291,6 +292,112 @@
                     </section>
                 </section>
                 <section class="stack">
+                    <section id="elixir">
+                        <h1>Elixir</h1>
+                    </section>
+                    <section>
+                        <h1>Modules and Functions</h1>
+                        <pre><code datat-trim>
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
+
+  def square(x) do
+    x * x
+  end
+end
+
+Math.sum(1, 2) # 3
+Math.square 3 # 9
+                        </code></pre>
+                        <aside class="notes">
+                            Code is defined in Modules with <code>defmodule</code>.  Functions are defined with
+                            <code>def</code>.  Functions are called as <code>Module</code>.<code>function</code>.
+                            Parentheses are optional.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Pattern Matching and Guards</h1>
+                        <pre><code data-trim>
+defmodule Geometry do
+  def area({:rectangle, w, h}) do
+    w * h
+  end
+
+  def area({:circle, r}) when is_number(r) do
+    3.14 * r * r
+  end
+end
+
+Geometry.area({:rectangle, 2, 3}) #=> 6
+Geometry.area({:circle, 3})       #=> 28.25999999999999801048
+                        </code></pre>
+                        <aside class="notes">
+                            A function can have multiple <code>def</code>s.  Allowing function overloading like
+                            in Java, but instead of matching on the class or interface, the overloading works based on
+                            pattern matching. Here, the clauses are matching on the atom and number of elements in the
+                            tuple.  <code>when is_number(r)</code> is guard.  Guards are used to restrict the type of
+                            parameters allowed or to enforce relationships between variable in a pattern that can't be
+                            expressed directly in the pattern shape.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Recursion</h1>
+                        <pre><code data-trim>
+defmodule Recursion do
+  def sum_list([head | tail], acc) do
+    sum_list(tail, acc + head)
+  end
+
+  def sum_list([], acc) do
+    acc
+  end
+end
+
+Recursion.sum_list([1,2,3], 0) #=> 6
+                        </code></pre>
+                        <aside class="notes">
+                            Since data is immutable, but tail calls are optimized, loops can be converted to tail recursive
+                            calls where the result of the loop is carried in an accumulator.  The base case of the loop is
+                            then to return the accumulator.  Having the base case in a separate function clause makes it much
+                            more obvious that the passed in value will be the return when the list is empty than when using
+                            a <code>for</code> loop or recursion with <code>if</code> statements in an imperative language.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Concurrency</h1>
+                        <pre><code data-trim>
+iex> pid = spawn_link fn ->
+...>   receive do
+...>     {:ping, client} -> send client, :pong
+...>   end
+...> end
+#PID<9014.59.0>
+iex> send pid, {:ping, self}
+{:ping, #PID<0.73.0>}
+iex> flush
+:pong
+:ok
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                I spawn a process passing an anonymous function and have it wait to receive
+                                <code>:ping</code>.  When it receive ping it will respond to the sender with
+                                <code>:pong</code>.  receive will wait for message to be received or pick the first
+                                message that matches from the process's mailbox.  There are no objects in Elixir, so
+                                <code>self</code> returns the current process's pid instead.  <code>flush</code> dumps
+                                the current processes mailbox without needing to use <code>receive</code>.
+                            </p>
+                            <p>
+                                Sending messages between processes is very similar to how you use <code>send</code> to
+                                send messages to objects.  Using mailboxes and <code>receive</code>, the process has
+                                more control than objects in Ruby.  The receiving process is free to ignore the message.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
                     <section id="why-elixir-and-not-erlang">
                         <h1>Why Elixir and not Erlang?</h1>
                         <ul>
@@ -298,6 +405,12 @@
                             <li><a href="#/metaprogramming">Metaprogramming</a></li>
                             <li><a href="#/polymorphism">Polymorphism</a></li>
                         </ul>
+                        <aside class="notes">
+                            Everything I've shown so far in Elixir can be accomplished in Erlang with only a change in
+                            Syntax, so the question becomes why use Elixir instead of Erlang?  It comes down to the
+                            three main features José Valim wanted to added to Erlang when making Elixir: tooling,
+                            metaprogramming, and polymorphism.
+                        </aside>
                     </section>
                 </section>
                 <section>
@@ -579,6 +692,9 @@ end
                             <li><a href="http://howistart.org/posts/elixir/1">How I Start</a></li>
                             <li><a href="http://learnxinyminutes.com/docs/elixir/">Learn X in Y</a></li>
                         </ul>
+                        <aside class="notes">
+                            Code samples for the Elixir stack of slides was taken from Learn X in Y.
+                        </aside>
                     </section>
                     <section>
                         <h1>Help</h1>
