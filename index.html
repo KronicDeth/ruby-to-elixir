@@ -702,7 +702,10 @@ older_joe_info = %{ joe_info | age: 31 }
                         </code></pre>
                         <aside class="notes">
                             Structs allow new types to be defined that can be used in protocols.  They are built on top
-                            of maps, but they have compile guarantees that the keys are correct.
+                            of maps, but they have compile guarantees that the keys are correct.  In Erlang, it's not
+                            possible to create new data types.  The closest that can be done is records, which are just
+                            tuples where the first element is an atom with the record's name, but the record syntax is
+                            clunky compared to Structs.
                         </aside>
                     </section>
                 </section>
