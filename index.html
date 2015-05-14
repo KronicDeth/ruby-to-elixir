@@ -231,7 +231,7 @@
                             it did.
                         </aside>
                     </section>
-                    <section>
+                    <section id="design-philosophy">
                         <h1>Design Philosophy</h1>
                         <ul>
                             <li>Fault tolerant</li>
@@ -266,7 +266,7 @@
                             </p>
                         </aside>
                     </section>
-                    <section>
+                    <section id="whats-app">
                         <h1>WhatsApp</h1>
                         <ul>
                             <li>2,277,845 simultaneous TCP connections</li>
@@ -684,6 +684,7 @@ older_joe_info = %{ joe_info | age: 31 }
                     <ol>
                         <li><a href="#/pipes">Pipes</a></li>
                         <li><a href="#/fizz-buzz">FizzBuzz</a></li>
+                        <li><a href="#/process-scaling">Process Scaling</a></li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -763,8 +764,114 @@ FizzBuzz.fizz_buzz 15 # "FizzBuzz"
                         just like in Ruby.
                     </aside>
                 </section>
-                <section>
-                    <h1>Process count</h1>
+                <section class="stack">
+                    <section id="process-scaling">
+                        <h1>Process Scaling</h1>
+                        <aside class="notes">
+                            As I hinted at in the <a href="#/design-philosophy">Design Philosophy</a> and
+                            <a href="#/whats-app">WhatsApp</a>, but how much memory does an individual process consume and
+                            how fast can processes be spawned?
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Memory</h1>
+                        <pre><code data-trim>
+f = fn -> receive do
+  after
+    :infinity -> :ok
+  end
+end
+{_, bytes} = Process.info(spawn(f), :memory)
+bytes # 2680
+                        </code></pre>
+                        <aside class="notes">
+                            Elixir process is only 2680 bytes of memory.  Threads on OS X are 1KB in the kernel,
+                            512KB for the stack (can be as low as 16 KB).
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (1)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def run(n) do
+    {microseconds, result} = :timer.tc(__MODULE__, :create_processes, [n])
+    IO.puts "#{result} (Calculated in #{microseconds} microseconds)"
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <code>run</code> will be called from the command-line and will benchmark the actual work in
+                            <code>create_processes</code>.
+                        </aside>
+                    </section>
+                     <section>
+                        <h1>Process Time (2)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def create_processes(n) do
+    last = Enum.reduce 1..n,
+                       self,
+                       fn(_, send_to) ->
+                         spawn(__MODULE__, :counter, [send_to])
+                       end
+
+    # start the count by sending
+    send last, 0
+
+    # and wait for the result to come back to us
+    receive do
+      final_answer when is_integer(final_answer) ->
+        "Result is #{inspect final_answer}"
+    end
+  end
+end
+                       </code></pre>
+                       <aside class="notes">
+                           <code>create_processes</code> will create a chain of processes in memory, with one process
+                           hooked to send to the previous process.  The chain will be started when the last process
+                           in the chain is sent 0, then <code>receive</code> waits for the messages to travel back
+                           through the chain to this process it pass itself as <code>self</code> as the first process
+                           in the chain.
+                       </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (3)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def counter(next_pid) do
+    receive do
+      n ->
+        send next_pid, n + 1
+    end
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Each process simply increments the number and passes it to the <code>next_pid</code> back
+                            along the chain.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (4)</h1>
+                        <pre class="stretch"><code data-trim>
+> elixir --erl "+P 1000000" -r lib/elixir_lunch_and_learn/chain.ex -e "ElixirLunchAndLearn.Chain.run(1_000_000)"
+Result is 1000000 (Calculated in 11658944 microseconds)
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                That's 1 million processes in 11 million 658 thousand and 944 microseconds, in other words
+                                11.7 seconds.  That also means each process takes 11.7 microseconds to spawn, do its work
+                                and go on to the next.
+                            </p>
+                            <p>
+                                For reference, Apple's
+                                <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/CreatingThreads.html">
+                                    own measurements
+                                </a> say it takes 90 microseconds to just spawn a thread.  The OS thread limit is 10240
+                                on my machine.
+                            </p>
+                        </aside>
+                    </section>
                 </section>
                   <section class="stack">
                     <section id="resources">
