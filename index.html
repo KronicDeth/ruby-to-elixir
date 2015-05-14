@@ -656,6 +656,28 @@ end
                             but in Elixir we define separate implementation for each type.
                         </aside>
                     </section>
+                    <section>
+                        <h1>Structs</h1>
+                        <pre><code data-trim>
+defmodule Person do
+  defstruct name: nil, age: 0, height: 0
+end
+
+joe_info = %Person{ name: "Joe", age: 30, height: 180 }
+#=> %Person{age: 30, height: 180, name: "Joe"}
+
+# Access the value of name
+joe_info.name #=> "Joe"
+
+# Update the value of age
+older_joe_info = %{ joe_info | age: 31 }
+#=> %Person{age: 31, height: 180, name: "Joe"}
+                        </code></pre>
+                        <aside class="notes">
+                            Structs allow new types to be defined that can be used in protocols.  They are built on top
+                            of maps, but they have compile guarantees that the keys are correct.
+                        </aside>
+                    </section>
                 </section>
                 <section class="stack">
                     <section id="wow">
