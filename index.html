@@ -683,6 +683,7 @@ older_joe_info = %{ joe_info | age: 31 }
                     <h1>Examples</h1>
                     <ol>
                         <li><a href="#/pipes">Pipes</a></li>
+                        <li><a href="#/fizz-buzz">FizzBuzz</a></li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -737,15 +738,35 @@ end
                         </aside>
                     </section>
                 </section>
-                <section class="stack">
-                    <section>
-                        <h1>Pattern Matching fizzbuzz</h1>
-                    </section>
-                    <section>
-                        <h1>Process count</h1>
-                    </section>
+                <section id="fizz-buzz">
+                    <h1>If-less fizz-buzz</h1>
+                    <pre><code data-trim>
+defmodule FizzBuzz do
+  def fizz_buzz(n), do: fizz_buzz(rem(n, 3), rem(n, 5), n)
+
+  defp fizz_buzz(0, 0, _), do: "FizzBuzz"
+  defp fizz_buzz(0, _, _), do: "Fizz"
+  defp fizz_buzz(_, 0, _), do: "Buzz"
+  defp fizz_buzz(_, _, n), do: n
+end
+
+FizzBuzz.fizz_buzz 10 # "Buzz"
+FizzBuzz.fizz_buzz 11 # 11
+FizzBuzz.fizz_buzz 12 # "Fizz"
+FizzBuzz.fizz_buzz 13 # 13
+FizzBuzz.fizz_buzz 14 # 14
+FizzBuzz.fizz_buzz 15 # "FizzBuzz"
+                    </code></pre>
+                    <aside class="notes">
+                        This is the classic FizzBuzz example problem, but with no explicit conditional logic.  All
+                        logic is encoded in the patterns of <code>fizz_buzz/3</code>.  <code>_</code> is don't care,
+                        just like in Ruby.
+                    </aside>
                 </section>
-                <section class="stack">
+                <section>
+                    <h1>Process count</h1>
+                </section>
+                  <section class="stack">
                     <section id="resources">
                         <h1>Resources</h1>
                     </section>
