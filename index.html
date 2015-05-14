@@ -679,13 +679,65 @@ older_joe_info = %{ joe_info | age: 31 }
                         </aside>
                     </section>
                 </section>
+                <section id="examples">
+                    <h1>Examples</h1>
+                    <ol>
+                        <li><a href="#/pipes">Pipes</a></li>
+                    </ol>
+                </section>
                 <section class="stack">
-                    <section id="examples">
-                        <h1>Examples</h1>
-                    </section>
                     <section>
                         <h1>Pipes</h1>
+                        <ul>
+                            <li>Eliminate deeply nested function calls</li>
+                            <li>Eliminate throw-away temporary variables</li>
+                            <li>Write shell-style pipelines between functions</li>
+                        </ul>
                     </section>
+                    <section>
+                        <pre><code data-trim>
+# deeply nested function calls
+def main(argv) do
+  output(process(parse_args(argv)))
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# single-use variables
+def main(argv) do
+  parsed_args = parse_args(argv)
+  processed = process(parsed_args)
+  output(processed)
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# Pipes
+def main(argv) do
+  argv
+  |> parse_args
+  |> process
+  |> output
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                All state has to be returned from functions if not passing messages, and IO is passing
+                                messages, so that means function calls have to take the output of a previous function,
+                                so we'd either have to deeply nest function calls, or use variables that are assigned on
+                                one line and used only on the next, but thinking about how *nix shells work, we could
+                                instead make a pipeline.
+                            </p>
+                            <p>
+                                The <code>|></code> operator takes the left operand and passes it as the first argument
+                                of the right operand.  Just like piping stdout to stdin in a shell.
+                            </p>
+                            <p>
+                                Like most of the cool features of Elixir, the <code>|></code> operator is a macro that
+                                just rearranges the pipeline back to the deeply nested function call form.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
                     <section>
                         <h1>Pattern Matching fizzbuzz</h1>
                     </section>
