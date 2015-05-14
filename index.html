@@ -397,6 +397,10 @@ iex> flush
                         </code></pre>
                         <aside class="notes">
                             <p>
+                                The <code>fn -></code> syntax is for an anonymous function like stabby lambdas in Ruby,
+                                CoffeeScript, ES6, or lambda expressions in Java 8.
+                            </p>
+                            <p>
                                 I spawn a process passing an anonymous function and have it wait to receive
                                 <code>:ping</code>.  When it receive ping it will respond to the sender with
                                 <code>:pong</code>.  receive will wait for message to be received or pick the first
