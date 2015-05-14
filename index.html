@@ -133,11 +133,24 @@
                             <li>Immutable data</li>
                         </ul>
                         <aside class="notes">
-                            The output of a mathematical function depends only only on its inputs.  This makes
-                            mathematical functions easier to reason about because you can just substitute the output
-                            for the function call. Pure functional languages, like Haskell completely avoid changing
-                            state by encapsulating state changes in their data, but Erlang and Elixir are not pure like
-                            Haskell.
+                            <p>
+                                The output of a mathematical function depends only only on its inputs.  This makes
+                                mathematical functions easier to reason about because you can just substitute the output
+                                for the function call. Pure functional languages, like Haskell completely avoid changing
+                                state by encapsulating state changes in their data, but Erlang and Elixir are not pure
+                                like Haskell.
+                            </p>
+                            <p>
+                                Haskell is pure because all it's IO is recorded as data and it's only the VM evaluating
+                                that data as actions that cause external, side-effects.  Any function call in Haskell
+                                is completely specified by its inputs, which can include the previous IO actions that
+                                are queued up.
+                            </p>
+                            <p>
+                                By contrast, Erlang and Elixir do allow immediate side-effect by communicating with
+                                other processes.  STDIO and STDOUT is presentated by processes in Erlang and Elixir,
+                                so the impurity of doing IO is covered by process communication.
+                            </p>
                         </aside>
                     </section>
                     <section>
