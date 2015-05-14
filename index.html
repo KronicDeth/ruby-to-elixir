@@ -687,26 +687,31 @@ end
                     <section>
                         <h1>Structs</h1>
                         <pre><code data-trim>
-defmodule Person do
-  defstruct name: nil, age: 0, height: 0
+defprotocol Phoenix.Param do
+  def to_param(term)
 end
 
-joe_info = %Person{ name: "Joe", age: 30, height: 180 }
-#=> %Person{age: 30, height: 180, name: "Joe"}
+defmodule User do
+  @derive {Phoenix.Param, key: :email}
+  defstruct [:id, :email]
+end
 
-# Access the value of name
-joe_info.name #=> "Joe"
-
-# Update the value of age
-older_joe_info = %{ joe_info | age: 31 }
-#=> %Person{age: 31, height: 180, name: "Joe"}
+user = %User{id: 1, username: "alice@example.com"}
+Phoenix.Param.to_param(user) # "alice@example.com"
                         </code></pre>
                         <aside class="notes">
-                            Structs allow new types to be defined that can be used in protocols.  They are built on top
-                            of maps, but they have compile guarantees that the keys are correct.  In Erlang, it's not
-                            possible to create new data types.  The closest that can be done is records, which are just
-                            tuples where the first element is an atom with the record's name, but the record syntax is
-                            clunky compared to Structs.
+                            <p>
+                                Structs allow new types to be defined that can be used in protocols.  They are built on
+                                top of maps, but they have compile guarantees that the keys are correct.  In Erlang,
+                                it's not possible to create new data types.  The closest that can be done is records,
+                                which are just tuples where the first element is an atom with the record's name, but the
+                                record syntax is clunky compared to Structs.  Example taken from the Phoenix docs.
+                            </p>
+                            <p>
+                                Here, I'm defining a User Struct, such as for a web app and I want to use the email
+                                address in parameters instead of the id of the User record, so I derive an implementation
+                                for the Phoenix.Param protocol.
+                            </p>
                         </aside>
                     </section>
                 </section>
