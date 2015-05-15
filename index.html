@@ -4,10 +4,10 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Lunch and Learn - Elixir</title>
 
-		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
-		<meta name="author" content="Hakim El Hattab">
+		<meta name="description" content="Lunch and Learn at Rapid7 Austin on Elixir">
+		<meta name="author" content="Luke Imhoff">
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -39,341 +39,923 @@
 		<div class="reveal">
 
 			<!-- Any section element inside of this container is displayed as a slide -->
-			<div class="slides">
-				<section>
-					<h1>Reveal.js</h1>
-					<h3>The HTML Presentation Framework</h3>
-					<p>
-						<small>Created by <a href="http://hakim.se">Hakim El Hattab</a> / <a href="http://twitter.com/hakimel">@hakimel</a></small>
-					</p>
-				</section>
+            <div class="slides">
+                <section>
+                    <h1>Lunch and Learn</h1>
+                    <h2>Elixir</h2>
+                    <p>Luke Imhoff</p>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th>
+                                <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="14px" height="10px" viewBox="0 0 14 10" enable-background="new 0 0 14 10" xml:space="preserve">
+                                            <g>
+                                                <path d="M7,7L5.268,5.484L0.316,9.729C0.496,9.896,0.739,10,1.007,10h11.986c0.267,0,0.509-0.104,0.688-0.271L8.732,5.484L7,7z"></path>
+                                                <path d="M13.684,0.271C13.504,0.103,13.262,0,12.993,0H1.007C0.74,0,0.498,0.104,0.318,0.273L7,6L13.684,0.271z"></path>
+                                                <polygon points="0,0.878 0,9.186 4.833,5.079  "></polygon>
+                                                <polygon points="9.167,5.079 14,9.186 14,0.875  "></polygon>
+                                            </g>
+                                        </svg>
+                            </th>
+                            <td>luke_imhoff@rapid7.com</td>
+                            <td>Kronic.Deth@gmail.com</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <svg version="1.1" class="github-icon-svg"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" fill="#C2C2C2" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761
+                c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32
+                c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472
+                c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037
+                C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65
+                c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261
+                c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082
+                c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129
+                c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path>
+                                        </svg>
+                            </th>
+                            <td>
+                                <a href="https://github.com/limhoff-r7" target="_blank">@limhoff-r7</a>
+                            </td>
+                            <td>
+                                <a href="https://github.com/KronicDeth" target="_blank">@KronicDeth</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <svg version="1.1" class="twitter-icon-svg"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 16 16" enable-background="new 0 0 16 16" xml:space="preserve">
+                                            <path fill="#C2C2C2" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27
+                c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767
+                c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206
+                C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271
+                c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469
+                c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"></path>
+                                        </svg>
+                            </th>
+                            <td></td>
+                            <td>
+                                <a href="https://twitter.com/KronicDeth" target="_blank">@KronicDeth</a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <aside class="notes">
+                        I am a Senior Software Engineer for Metasploit Applications at Rapid7
+                    </aside>
+                </section>
+                <section>
+                    <h1>Outline</h1>
+                    <ol>
+                        <li><a href="#/functional-languages">Functional Languages</a></li>
+                        <li><a href="#/erlang">Erlang</a></li>
+                        <li><a href="#/elixir">Elixir</a></li>
+                        <li><a href="#/why-elixir-and-not-erlang">Why Elixir and not Erlang?</a></li>
+                        <li><a href="#/examples">Examples</a></li>
+                        <li><a href="#/resources">Resources</a></li>
+                    </ol>
+                </section>
+                <section class="stack">
+                    <section id="functional-languages">
+                        <h1>Functional Languages</h1>
+                    </section>
+                    <section>
+                        <h1>What is a functional language?</h1>
+                        <ul>
+                            <li>Mathematical functions</li>
+                            <li>Avoids changing state</li>
+                            <li>Immutable data</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                The output of a mathematical function depends only only on its inputs.  This makes
+                                mathematical functions easier to reason about because you can just substitute the output
+                                for the function call. Pure functional languages, like Haskell completely avoid changing
+                                state by encapsulating state changes in their data, but Erlang and Elixir are not pure
+                                like Haskell.
+                            </p>
+                            <p>
+                                Haskell is pure because all it's IO is recorded as data and it's only the VM evaluating
+                                that data as actions that cause external, side-effects.  Any function call in Haskell
+                                is completely specified by its inputs, which can include the previous IO actions that
+                                are queued up.
+                            </p>
+                            <p>
+                                By contrast, Erlang and Elixir do allow immediate side-effect by communicating with
+                                other processes.  STDIO and STDOUT is presentated by processes in Erlang and Elixir,
+                                so the impurity of doing IO is covered by process communication.
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Advantages of functional languages</h1>
+                        <ul>
+                            <li>Lack of shared, mutable state</li>
+                            <li>Immutable data</li>
+                        </ul>
+                        <aside class="notes">
+                            Immutable data means you don't have to worry about a function call changing your copy of
+                            the arguments you pass to it.  Extending this across parallel threads, it means you don't
+                            have to worry about race conditions and other threading bugs.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>(Perceived) disadvantages</h1>
+                        <ul>
+                            <li>Cryptic syntax</li>
+                            <li>Harder to reason about immutability</li>
+                            <li>Recursion + accumulation harder than iteration and mutation</li>
+                            <li>"It's not how I think!"</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                Functional languages originated from Church's lambda calculus which is super cryptic
+                                with only &lambda;, <code>x</code>, and <code>.</code>.  Other functional languages
+                                like the Lisps, including Scheme and Clojure, use more parentheses than most people are
+                                comfortable with. Haskell's syntax abstracts types and function arguments/returns and
+                                drops parantheses.
+                            </p>
+                            <p>
+                                Coming from an imperative and object oriented background we're so used to mutability
+                                that we think of it as normal even though when we first learned it, mutability was odd
+                                compared to math's fixed values for variables and pure functions.
+                            </p>
+                            <p>
+                                Because most languages don't support tail call optimization or the lesser tail call
+                                recursion, we've been trained to reach for the iterative solution to avoid stack
+                                overflows, but a lot of problems in computing have much nicer recursive solutions.
+                                With general tail call optimization, loops involving more than one function can be
+                                represented in what would look like recursion.
+                            </p>
+                            <p>
+                                Just as you learned imperative programming over mathematical thinking, you can retrain
+                                to think in functional languages and even switch back and forth.  I currently switch
+                                between Java, Ruby, and Elixir.  With only a few hiccups on namespace syntax and
+                                string quoting.  If you're used to using <code>map</code> or <code>select</code> from
+                                <code>Enumerable</code> in Ruby or the lambda expression features in Java 8, you are
+                                already using functional programming.  If you ever used class methods in Ruby that
+                                didn't write to class or instance variable.  Or, if you ever used static methods in
+                                Java.  You're already using functional programming.
+                            </p>
+                            <p>
+                                Learning functional programming will also prepare you for the future.  If you watch
+                                conference talks in other langauges, such as Javascript or C++, languages are moving to
+                                have more and more functional features as the programming community adapts to the
+                                many-cores future.  They have figured out that locks, threads, and shared mutable
+                                state is too error prone.
+                            </p>
+                            <p>
+                                Moore's law increasing processor speed stopped 10 years ago. If you want to take
+                                advantage of Moore's law now and in the future you need to write concurrent programs now
+                                that can be parallelized across the additional cores of the future automatically.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="erlang">
+                        <h1>Erlang</h1>
+                        <aside class="notes">
+                            Elixir runs on top of the BEAM Virtual Machine, which was originally designed for Erlang.
+                            Much how Clojure and Scala run on the JVM, which was originally designed for Java.  Like
+                            how Clojure and Scala can call Java code, Elixir can call Erlang code, so to understand
+                            Elixir we need a little background on Erlang first.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Facts</h1>
+                        <ul>
+                            <li>Developed for telecoms</li>
+                            <li>Massively scalable</li>
+                            <li>Hot code reloading</li>
+                        </ul>
+                        <aside class="notes">
+                            Erlang was developed in 1986 at Ericsson by Joe Armstrong, Robert Virding and Mike Williams.
+                            It was developed to run phone switches.  It needed to be able to update code without
+                            dropping in progress calls and handle thousands of simultaneous connections using a single
+                            embedded system from the late 80s.  It was written to show that replacing low-level C
+                            for the phone switches would lead to more reliable software with a smaller code base, which
+                            it did.
+                        </aside>
+                    </section>
+                    <section id="design-philosophy">
+                        <h1>Design Philosophy</h1>
+                        <ul>
+                            <li>Fault tolerant</li>
+                            <li>Failures expected and embraced</li>
+                            <li>Concurrency model is simple, but powerful</li>
+                        </ul>
+                        <a href="http://learnyousomeerlang.com/the-hitchhikers-guide-to-concurrency#dont-panic"><img src="images/hello.png"/></a>
+                        <a href="http://learnyousomeerlang.com/errors-and-processes#links"><img src="images/link-exit.png"/></a>
+                        <aside class="notes">
+                            <p>
+                                Erlang is know for it's "Let It Crash!" motto, but letting code crash in the face of
+                                software and hardware exceptions is not exactly what it means. Instead, Erlang supplies
+                                VM-level processes.  In other languages, such as Ruby these would be green-threads,
+                                which would be bad for performance and scheduling, but because Erlang is immutable, each
+                                green-thread is completely isolated from the other green-threads, so much like OS
+                                processes, the name process is apt because if an Erlang process crashes, just killing it
+                                will clean everything up.
+                            </p>
+                            <p>
+                                If a process is killed when it crashes how is state maintained?  Well, Erlang processes
+                                can monitor each other so if one process crashes another is notified.  This pattern is
+                                so useful that OTP, Erlang's standard library has a behavior (think abstract class or
+                                interface) called a supervisor that monitors a process and restarts it when it dies.
+                            </p>
+                            <p>
+                                Inside each process, code is written sequentially.  Processes communicate with each
+                                other only by passing immutable messages.  This makes Erlang processes closer to the
+                                idea for objects described in Alan Kay's original papers than objects in most
+                                current Object-Oriented languages like Ruby.
+                            </p>
+                            <p>
+                                Processes receive messages from a mailbox, which can be addressed even remotely if you
+                                know the name.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="whats-app">
+                        <h1>WhatsApp</h1>
+                        <ul>
+                            <li>Text messages, images, video, user location, and audio over data plans instead of SMS</li>
+                            <li>2,277,845 simultaneous TCP connections</li>
+                            <li>24 cores</li>
+                            <li>1 Erlang VM</li>
+                            <li>$22 billin in cashe and (Facebook) stock</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                One of the recent success stories with Erlang is WhatsApp.  It was acquired by Facebook
+                                in 2014.  In 2012 they were supporting over 2 million simultaneous connection on a
+                                single machine using 24 cores.  The Erlang VM was able to schedule that many
+                                simultaneous processes because there is only one OS thread for each scheduler and each
+                                scheduler is assigned a core.  This keeps works from going across cores unless processes
+                                want to communicate, but they message pass, so there's no shared memory issues with
+                                caches or system memory like in other languages.
+                            </p>
+                            <p>
+                                Besides, WhatApps, Erlang is being used in many MMOs as it allows easy coordination
+                                between all the mobile users.  It is also used inside Heroku to manage their internal
+                                network and routing.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="elixir">
+                        <h1>Elixir</h1>
+                    </section>
+                    <section>
+                        <h1>Modules and Functions</h1>
+                        <pre><code datat-trim>
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
 
-				<section>
-					<h2>Hello There</h2>
-					<p>
-						reveal.js enables you to create beautiful interactive slide decks using HTML. This presentation will show you examples of what it can do.
-					</p>
-				</section>
+  def square(x) do
+    x * x
+  end
+end
 
-				<!-- Example of nested vertical slides -->
-				<section>
-					<section>
-						<h2>Vertical Slides</h2>
-						<p>Slides can be nested inside of each other.</p>
-						<p>Use the <em>Space</em> key to navigate through all slides.</p>
-						<br>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section>
-						<h2>Basement Level 1</h2>
-						<p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-					</section>
-					<section>
-						<h2>Basement Level 2</h2>
-						<p>That's it, time to go back up.</p>
-						<br>
-						<a href="#/2">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Up arrow" style="-webkit-transform: rotate(180deg);">
-						</a>
-					</section>
-				</section>
+Math.sum(1, 2) # 3
+Math.square 3 # 9
+                        </code></pre>
+                        <aside class="notes">
+                            Code is defined in Modules with <code>defmodule</code>.  Functions are defined with
+                            <code>def</code>.  Functions are called as <code>Module</code>.<code>function</code>.
+                            Parentheses are optional.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Pattern Matching and Guards</h1>
+                        <pre><code data-trim>
+defmodule Geometry do
+  def area({:rectangle, w, h}) do
+    w * h
+  end
 
-				<section>
-					<h2>Slides</h2>
-					<p>
-						Not a coder? Not a problem. There's a fully-featured visual editor for authoring these, try it out at <a href="http://slides.com" target="_blank">http://slides.com</a>.
-					</p>
-				</section>
+  def area({:circle, r}) when is_number(r) do
+    3.14 * r * r
+  end
+end
 
-				<section>
-					<h2>Point of View</h2>
-					<p>
-						Press <strong>ESC</strong> to enter the slide overview.
-					</p>
-					<p>
-						Hold down alt and click on any element to zoom in on it using <a href="http://lab.hakim.se/zoom-js">zoom.js</a>. Alt + click anywhere to zoom back out.
-					</p>
-				</section>
+Geometry.area({:rectangle, 2, 3}) #=> 6
+Geometry.area({:circle, 3})       #=> 28.25999999999999801048
+                        </code></pre>
+                        <aside class="notes">
+                            A function can have multiple <code>def</code>s.  Allowing function overloading like
+                            in Java, but instead of matching on the class or interface, the overloading works based on
+                            pattern matching. Here, the clauses are matching on the atom and number of elements in the
+                            tuple.  <code>when is_number(r)</code> is guard.  Guards are used to restrict the type of
+                            parameters allowed or to enforce relationships between variable in a pattern that can't be
+                            expressed directly in the pattern shape.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Recursion</h1>
+                        <pre><code data-trim>
+defmodule Recursion do
+  def sum_list([head | tail], acc) do
+    sum_list(tail, acc + head)
+  end
 
-				<section>
-					<h2>Touch Optimized</h2>
-					<p>
-						Presentations look great on touch devices, like mobile phones and tablets. Simply swipe through your slides.
-					</p>
-				</section>
+  def sum_list([], acc) do
+    acc
+  end
+end
 
-				<section data-markdown>
-					<script type="text/template">
-						## Markdown support
+Recursion.sum_list([1,2,3], 0) #=> 6
+                        </code></pre>
+                        <aside class="notes">
+                            Since data is immutable, but tail calls are optimized, loops can be converted to tail recursive
+                            calls where the result of the loop is carried in an accumulator.  The base case of the loop is
+                            then to return the accumulator.  Having the base case in a separate function clause makes it much
+                            more obvious that the passed in value will be the return when the list is empty than when using
+                            a <code>for</code> loop or recursion with <code>if</code> statements in an imperative language.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Concurrency</h1>
+                        <pre><code data-trim>
+iex> pid = spawn_link fn ->
+...>   receive do
+...>     {:ping, client} -> send client, :pong
+...>   end
+...> end
+#PID<9014.59.0>
+iex> send pid, {:ping, self}
+{:ping, #PID<0.73.0>}
+iex> flush
+:pong
+:ok
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                The <code>fn -></code> syntax is for an anonymous function like stabby lambdas in Ruby,
+                                CoffeeScript, ES6, or lambda expressions in Java 8.
+                            </p>
+                            <p>
+                                I spawn a process passing an anonymous function and have it wait to receive
+                                <code>:ping</code>.  When it receive ping it will respond to the sender with
+                                <code>:pong</code>.  receive will wait for message to be received or pick the first
+                                message that matches from the process's mailbox.  There are no objects in Elixir, so
+                                <code>self</code> returns the current process's pid instead.  <code>flush</code> dumps
+                                the current processes mailbox without needing to use <code>receive</code>.
+                            </p>
+                            <p>
+                                Sending messages between processes is very similar to how you use <code>send</code> to
+                                send messages to objects.  Using mailboxes and <code>receive</code>, the process has
+                                more control than objects in Ruby.  The receiving process is free to ignore the message.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="why-elixir-and-not-erlang">
+                        <h1>Why Elixir and not Erlang?</h1>
+                        <ul>
+                            <li><a href="#/tooling">Tooling</a></li>
+                            <li><a href="#/metaprogramming">Metaprogramming</a></li>
+                            <li><a href="#/polymorphism">Polymorphism</a></li>
+                        </ul>
+                        <aside class="notes">
+                            Everything I've shown so far in Elixir can be accomplished in Erlang with only a change in
+                            Syntax, so the question becomes why use Elixir instead of Erlang?  It comes down to the
+                            three main features José Valim wanted to added to Erlang when making Elixir: tooling,
+                            metaprogramming, and polymorphism.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section id="tooling">
+                        <h1>Tooling</h1>
+                        <ul>
+                            <li><a href="#/mix">mix</a></li>
+                            <li><a href="#/ex_unit">ExUnit</a></li>
+                            <li><a href="#/ex_doc">ExDoc</a></li>
+                        </ul>
+                    </section>
+                    <section id="mix">
+                        <h1>Mix</h1>
+                        <h2>Rake + Bundler</h2>
+                        <ul>
+                            <li>Create projects</li>
+                            <li>Manages dependencies</li>
+                            <li>Compiles code and dependencies</li>
+                            <li>Runs tests</li>
+                        </ul>
+                        <aside class="notes">
+                            The Erlang ecosystem for build tools is split between 3 different tools.  It has no package
+                            manager or package repository like rubygems.org.  Elixir on the other hand has
+                            <code>mix</code> for managing dependencies and <code>hex.pm</code> for package hosting.
+                            <code>hex</code> has caught on so well, the next generation Erlang build tool,
+                            <code>rebar3</code> will support <code>hex</code> packages.
+                        </aside>
+                    </section>
+                    <section id="ex_unit">
+                        <h1>ExUnit</h1>
+                        <h2>Unit Testing</h2>
+                        <ul>
+                            <li>Adds <code>mix test</code></li>
+                            <li>Defines DSL for defining tests</li>
+                            <li>Defines DSL for checking results</li>
+                        </ul>
+                        <aside class="notes">
+                            <code>ExUnit</code> test definition test looks like RSpec, but it uses asserts like Minitest.
+                        </aside>
+                    </section>
+                    <section id="ex_doc">
+                        <h1>ExDoc</h1>
+                        <ul>
+                            <li>Documentation is a first class feature of Elixir</li>
+                            <li>Documentation examples can be tested with ExUnit's <code>doctest</code></li>
+                            <li>Documentation can be hosts on <a href="http://hexdocs.pm">hexdocs.pm</a></li>
+                        </ul>
+                        <aside class="notes">
+                            Go to next slides to explain each point with example code.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre class="stretch"><code data-trim>
+defmodule Atom do
+  @moduledoc """
+  Convenience functions for working with atoms.
+  See also `Kernel.is_atom/1`.
+  """
 
-						Write content using inline or external Markdown.
-						Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
+  @doc """
+  Converts an atom to a string.
 
-						```
-						<section data-markdown>
-						  ## Markdown support
+  Inlined by the compiler.
 
-						  Write content using inline or external Markdown.
-						  Instructions and more info available in the [readme](https://github.com/hakimel/reveal.js#markdown).
-						</section>
-						```
-					</script>
-				</section>
+  ## Examples
 
-				<section>
-					<section id="fragments">
-						<h2>Fragments</h2>
-						<p>Hit the next arrow...</p>
-						<p class="fragment">... to step through ...</p>
-						<p><span class="fragment">... a</span> <span class="fragment">fragmented</span> <span class="fragment">slide.</span></p>
+      iex> Atom.to_string(:foo)
+      "foo"
+  """
+  @spec to_string(atom) :: String.t
+  def to_string(atom) do
+    :erlang.atom_to_binary(atom, :utf8)
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Modules can be documented with <code>@moduledoc</code>.  Functions can be documented with
+                                <code>@doc</code>.  Neither of these are keywords, but instead the <code>@</code>
+                                variables are Module attributes, which are used like constants in Elixir.  Because the
+                                documentation isn't comments, but stored in variable it can be retrieved from the
+                                running system.  In fact, you can <code>h Atom.to_string</code> to get the function doc
+                                in <code>iex</code>
+                            </p>
+                            <p>
+                                The indented example that starts with <code>iex></code> will be detected by
+                                <code>doctest</code> in ExUnit and the example will be checked for correctness.
+                            </p>
+                            <p>
+                                Retrieving documentation for running code instead of a separate, preprocessed output
+                                isn't possible in Ruby and testing documentation examples is only possible with YARD
+                                plugins.
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Tool Demo</h1>
+                        <script type="text/javascript" src="https://asciinema.org/a/20038.js" id="asciicast-20038" async></script>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="metaprogramming">
+                        <h1>Erlang Macros vs Elixir Macros</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Erlang</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Run when?</td>
+                                <td>Preprocess</td>
+                                <td>Compile</td>
+                            </tr>
+                            <tr>
+                                <td>Code generation</td>
+                                <td>String substitution</td>
+                                <td>AST manipulation</td>
+                            </tr>
+                            <tr>
+                                <td>Language Features</td>
+                                <td>Functions with Arguments</td>
+                                <td>Full</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            When programming Ruby, we're used to being able to use blocks with class-level methods to
+                            call and write DSLs to define code for us.  In Erlang, the macros can only do string
+                            substitution like the C preprocessor, but Elixir gives access to the full language and
+                            allows manipulating the Abstract Syntax Tree, which means we can delay execution just like
+                            passing blocks in Ruby.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Elixir Macros</h1>
+                        <pre><code data-trim>
+defmodule ElixirLunchAndLearnTest do
+  use ExUnit.Case
 
-						<aside class="notes">
-							This slide has fragments which are also stepped through in the notes window.
-						</aside>
-					</section>
-					<section>
-						<h2>Fragment Styles</h2>
-						<p>There's different types of fragments, like:</p>
-						<p class="fragment grow">grow</p>
-						<p class="fragment shrink">shrink</p>
-						<p class="fragment roll-in">roll-in</p>
-						<p class="fragment fade-out">fade-out</p>
-						<p class="fragment current-visible">current-visible</p>
-						<p class="fragment highlight-red">highlight-red</p>
-						<p class="fragment highlight-blue">highlight-blue</p>
-					</section>
-				</section>
+  test "the truth" do
+    assert 1 + 1 != 2
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Looking at this, it looks a lot like a DSL for ruby with <code>do</code>do blocks, but
+                            <code>defmodule</code> is not a keyword in Elixir equivalent to <code>module</code> in Ruby
+                            or <code>class</code> in Java, instead <code>defmodule</code> is a macro. Defined as normal
+                            Elixir code that is run at compile time. The same with `use`, `test`, and `assert`.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Capture Code</h1>
+                        <img src="images/macros.png"/>
+                        <aside class="notes">
+                            With macros Elixir can do what most languages do with keywords, but those macros can
+                            manipulate other code.  For example, the line with <code>assert</code> is able to give the
+                            actual code run that got the error.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Compile Data into Code</h2>
+                        <pre class="stretch"><code data-trim>
+defmodule MimeTypes do
+  HTTPotion.start
+  HTTPotion.Response[body: body] = HTTPotion.get(
+    "http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types"
+  )
 
-				<section id="transitions">
-					<h2>Transition Styles</h2>
-					<p>
-						You can select from different transitions, like: <br>
-						<a href="?transition=none#/transitions">None</a> -
-						<a href="?transition=fade#/transitions">Fade</a> -
-						<a href="?transition=slide#/transitions">Slide</a> -
-						<a href="?transition=convex#/transitions">Convex</a> -
-						<a href="?transition=concave#/transitions">Concave</a> -
-						<a href="?transition=zoom#/transitions">Zoom</a>
-					</p>
-				</section>
+  Enum.each String.split(body, %r/\n/), fn (line) ->
+    unless line == "" or line =~ %r/^#/ do
+      [ mimetype | _exts ] = String.split(line)
 
-				<section id="themes">
-					<h2>Themes</h2>
-					<p>
-						reveal.js comes with a few themes built in: <br>
-						<!-- Hacks to swap themes after the page has loaded. Not flexible and only intended for the reveal.js demo deck. -->
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/black.css'); return false;">Black (default)</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/white.css'); return false;">White</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/league.css'); return false;">League</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/sky.css'); return false;">Sky</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/beige.css'); return false;">Beige</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/simple.css'); return false;">Simple</a> <br>
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/serif.css'); return false;">Serif</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/night.css'); return false;">Night</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/moon.css'); return false;">Moon</a> -
-						<a href="#" onclick="document.getElementById('theme').setAttribute('href','css/theme/solarized.css'); return false;">Solarized</a>
-					</p>
-				</section>
 
-				<section>
-					<section data-background="#dddddd">
-						<h2>Slide Backgrounds</h2>
-						<p>
-							Set <code>data-background="#dddddd"</code> on a slide to change the background color. All CSS color formats are supported.
-						</p>
-						<a href="#" class="navigate-down">
-							<img width="178" height="238" data-src="https://s3.amazonaws.com/hakim-static/reveal-js/arrow.png" alt="Down arrow">
-						</a>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png">
-						<h2>Image Backgrounds</h2>
-						<pre><code>&lt;section data-background="image.png"&gt;</code></pre>
-					</section>
-					<section data-background="https://s3.amazonaws.com/hakim-static/reveal-js/image-placeholder.png" data-background-repeat="repeat" data-background-size="100px">
-						<h2>Tiled Backgrounds</h2>
-						<pre><code style="word-wrap: break-word;">&lt;section data-background="image.png" data-background-repeat="repeat" data-background-size="100px"&gt;</code></pre>
-					</section>
-					<section data-background-video="https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.mp4,https://s3.amazonaws.com/static.slid.es/site/homepage/v1/homepage-video-editor.webm" data-background-color="#000000">
-						<div style="background-color: rgba(0, 0, 0, 0.9); color: #fff; padding: 20px;">
-							<h2>Video Backgrounds</h2>
-							<pre><code style="word-wrap: break-word;">&lt;section data-background-video="video.mp4,video.webm"&gt;</code></pre>
-						</div>
-					</section>
-				</section>
+      def is_valid?(unquote(mimetype)), do: true
+    end
+  end
 
-				<section data-transition="slide" data-background="#4d7e65" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						Different background transitions are available via the backgroundTransition option. This one's called "zoom".
-					</p>
-					<pre><code>Reveal.configure({ backgroundTransition: 'zoom' })</code></pre>
-				</section>
+  def is_valid?(_mimetype), do: false
+end
 
-				<section data-transition="slide" data-background="#b5533c" data-background-transition="zoom">
-					<h2>Background Transitions</h2>
-					<p>
-						You can override background transitions per-slide.
-					</p>
-					<pre><code style="word-wrap: break-word;">&lt;section data-background-transition="zoom"&gt;</code></pre>
-				</section>
+MimeTypes.is_valid?("application/vnd.exn") #=> false
+MimeTypes.is_valid?("application/json")    #=> true
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Here, we download the list of know mime-types and create functions that match the known names.
+                                This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
+                                and parse a file at runtime.
+                            </p>
+                            <p>
+                                This approach is also used to enable Elixir to have full Unicode
+                                support including proper support for graphemes vs codepoints, such as when the accent is
+                                separate from the character being accented.  Ruby doesn't handle this part of Unicode
+                                correctly, which may become important as meterpreter adds unicode support.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="polymorphism">
+                        <h1>Protocols</h1>
+                        <ul>
+                            <li>Allow extending functions to support new types</li>
+                            <li>Support for protocol is separate from type definition</li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                Erlang doesn't have protocols, so in it you have to either fork and update a function
+                                to support your new data format or write wrapper functions that handle your new data
+                                type and the old data type supported by the library.
+                            </p>
+                            <p>
+                                In Ruby, we could monkey patch a class to support new methods.  In Java, reflection
+                                would have to be used to add new methods to a pre-existing class or a method would need
+                                to be implemented from an interface.  In Elixir, protocols can be defined that expose
+                                new methods and then implementations of that protocol can be registered for different
+                                types, but importantly, the protocol and type don't need to know about each other.  The
+                                implementation can be done independently and Elixir will look it up and call it when
+                                using the protocol.
+                            </p>
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Blank.blank?</h1>
+                        <pre><code data-trim>
+defprotocol Blank do
+  @doc "Returns true if data is considered blank/empty"
+  def blank?(data)
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# Integers are never blank
+defimpl Blank, for: Integer do
+  def blank?(_), do: false
+end
 
-				<section>
-					<h2>Pretty Code</h2>
-					<pre><code data-trim contenteditable>
-function linkify( selector ) {
-  if( supports3DTransforms ) {
+# Just empty list is blank
+defimpl Blank, for: List do
+  def blank?([]), do: true
+  def blank?(_),  do: false
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Rails developers will recognize <code>blank?</code> from <code>ActiveSupport</code>.  In
+                            Ruby, ActiveSupport must open up each class and add the <code>blank?</code> method to it,
+                            but in Elixir we define separate implementation for each type.  This comes from the
+                            <a href="http://elixir-lang.org/getting-started/protocols.html">Getting started guide</a>.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Structs</h1>
+                        <pre><code data-trim>
+defprotocol Phoenix.Param do
+  def to_param(term)
+end
 
-    var nodes = document.querySelectorAll( selector );
+defmodule User do
+  @derive {Phoenix.Param, key: :email}
+  defstruct [:id, :email]
+end
 
-    for( var i = 0, len = nodes.length; i &lt; len; i++ ) {
-      var node = nodes[i];
+user = %User{id: 1, username: "alice@example.com"}
+Phoenix.Param.to_param(user) # "alice@example.com"
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Structs allow new types to be defined that can be used in protocols.  They are built on
+                                top of maps, but they have compile guarantees that the keys are correct.  In Erlang,
+                                it's not possible to create new data types.  The closest that can be done is records,
+                                which are just tuples where the first element is an atom with the record's name, but the
+                                record syntax is clunky compared to Structs.  Example taken from the Phoenix docs.
+                            </p>
+                            <p>
+                                Here, I'm defining a User Struct, such as for a web app and I want to use the email
+                                address in parameters instead of the id of the User record, so I derive an implementation
+                                for the Phoenix.Param protocol.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section id="examples">
+                    <h1>Examples</h1>
+                    <ol>
+                        <li><a href="#/pipes">Pipes</a></li>
+                        <li><a href="#/fizz-buzz">FizzBuzz</a></li>
+                        <li><a href="#/process-scaling">Process Scaling</a></li>
+                    </ol>
+                </section>
+                <section class="stack">
+                    <section>
+                        <h1>Pipes</h1>
+                        <ul>
+                            <li>Eliminate deeply nested function calls</li>
+                            <li>Eliminate throw-away temporary variables</li>
+                            <li>Write shell-style pipelines between functions</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <pre><code data-trim>
+# deeply nested function calls
+def main(argv) do
+  output(process(parse_args(argv)))
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# single-use variables
+def main(argv) do
+  parsed_args = parse_args(argv)
+  processed = process(parsed_args)
+  output(processed)
+end
+                        </code></pre>
+                        <pre><code data-trim>
+# Pipes
+def main(argv) do
+  argv
+  |> parse_args
+  |> process
+  |> output
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                All state has to be returned from functions if not passing messages, and IO is passing
+                                messages, so that means function calls have to take the output of a previous function,
+                                so we'd either have to deeply nest function calls, or use variables that are assigned on
+                                one line and used only on the next, but thinking about how *nix shells work, we could
+                                instead make a pipeline.
+                            </p>
+                            <p>
+                                The <code>|></code> operator takes the left operand and passes it as the first argument
+                                of the right operand.  Just like piping stdout to stdin in a shell.
+                            </p>
+                            <p>
+                                Like most of the cool features of Elixir, the <code>|></code> operator is a macro that
+                                just rearranges the pipeline back to the deeply nested function call form.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section id="fizz-buzz">
+                    <h1>If-less fizz-buzz</h1>
+                    <pre><code data-trim>
+defmodule FizzBuzz do
+  def fizz_buzz(n), do: fizz_buzz(rem(n, 3), rem(n, 5), n)
 
-      if( !node.className ) {
-        node.className += ' roll';
-      }
-    }
-  }
-}
-					</code></pre>
-					<p>Code syntax highlighting courtesy of <a href="http://softwaremaniacs.org/soft/highlight/en/description/">highlight.js</a>.</p>
-				</section>
+  defp fizz_buzz(0, 0, _), do: "FizzBuzz"
+  defp fizz_buzz(0, _, _), do: "Fizz"
+  defp fizz_buzz(_, 0, _), do: "Buzz"
+  defp fizz_buzz(_, _, n), do: n
+end
 
-				<section>
-					<h2>Marvelous List</h2>
-					<ul>
-						<li>No order here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-						<li>Or here</li>
-					</ul>
-				</section>
+FizzBuzz.fizz_buzz 10 # "Buzz"
+FizzBuzz.fizz_buzz 11 # 11
+FizzBuzz.fizz_buzz 12 # "Fizz"
+FizzBuzz.fizz_buzz 13 # 13
+FizzBuzz.fizz_buzz 14 # 14
+FizzBuzz.fizz_buzz 15 # "FizzBuzz"
+                    </code></pre>
+                    <aside class="notes">
+                        This is the classic FizzBuzz example problem, but with no explicit conditional logic.  All
+                        logic is encoded in the patterns of <code>fizz_buzz/3</code>.  <code>_</code> is don't care,
+                        just like in Ruby.
+                    </aside>
+                </section>
+                <section class="stack">
+                    <section id="process-scaling">
+                        <h1>Process Scaling</h1>
+                        <aside class="notes">
+                            As I hinted at in the <a href="#/design-philosophy">Design Philosophy</a> and
+                            <a href="#/whats-app">WhatsApp</a>, but how much memory does an individual process consume and
+                            how fast can processes be spawned?
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Memory</h1>
+                        <pre><code data-trim>
+f = fn -> receive do
+  after
+    :infinity -> :ok
+  end
+end
+{_, bytes} = Process.info(spawn(f), :memory)
+bytes # 2680
+                        </code></pre>
+                        <aside class="notes">
+                            Elixir process is only 2680 bytes of memory.  Threads on OS X are 1KB in the kernel,
+                            512KB for the stack (can be as low as 16 KB).
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (1)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def run(n) do
+    {microseconds, result} = :timer.tc(__MODULE__, :create_processes, [n])
+    IO.puts "#{result} (Calculated in #{microseconds} microseconds)"
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <code>run</code> will be called from the command-line and will benchmark the actual work in
+                            <code>create_processes</code>.
+                        </aside>
+                    </section>
+                     <section>
+                        <h1>Process Time (2)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def create_processes(n) do
+    last = Enum.reduce 1..n,
+                       self,
+                       fn(_, send_to) ->
+                         spawn(__MODULE__, :counter, [send_to])
+                       end
 
-				<section>
-					<h2>Fantastic Ordered List</h2>
-					<ol>
-						<li>One is smaller than...</li>
-						<li>Two is smaller than...</li>
-						<li>Three!</li>
-					</ol>
-				</section>
+    # start the count by sending
+    send last, 0
 
-				<section>
-					<h2>Tabular Tables</h2>
-					<table>
-						<thead>
-							<tr>
-								<th>Item</th>
-								<th>Value</th>
-								<th>Quantity</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Apples</td>
-								<td>$1</td>
-								<td>7</td>
-							<tr>
-							<tr>
-								<td>Lemonade</td>
-								<td>$2</td>
-								<td>18</td>
-							<tr>
-							<tr>
-								<td>Bread</td>
-								<td>$3</td>
-								<td>2</td>
-							<tr>
-						</tbody>
-					</table>
-				</section>
-
-				<section>
-					<h2>Clever Quotes</h2>
-					<p>
-						These guys come in two forms, inline: <q cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-					</p>
-					<blockquote cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-						&ldquo;For years there has been a theory that millions of monkeys typing at random on millions of typewriters would
-						reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-					</blockquote>
-				</section>
-
-				<section>
-					<h2>Intergalactic Interconnections</h2>
-					<p>
-						You can link between slides internally,
-						<a href="#/2/3">like this</a>.
-					</p>
-				</section>
-
-				<section>
-					<h2>Speaker View</h2>
-					<p>There's a <a href="https://github.com/hakimel/reveal.js#speaker-notes">speaker view</a>. It includes a timer, preview of the upcoming slide as well as your speaker notes.</p>
-					<p>Press the <em>S</em> key to try it out.</p>
-
-					<aside class="notes">
-						Oh hey, these are some notes. They'll be hidden in your presentation, but you can see them if you open the speaker notes window (hit 's' on your keyboard).
-					</aside>
-				</section>
-
-				<section>
-					<h2>Export to PDF</h2>
-					<p>Presentations can be <a href="https://github.com/hakimel/reveal.js#pdf-export">exported to PDF</a>, here's an example:</p>
-					<iframe src="//www.slideshare.net/slideshow/embed_code/42840540" width="445" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:3px solid #666; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
-				</section>
-
-				<section>
-					<h2>Global State</h2>
-					<p>
-						Set <code>data-state="something"</code> on a slide and <code>"something"</code>
-						will be added as a class to the document element when the slide is open. This lets you
-						apply broader style changes, like switching the page background.
-					</p>
-				</section>
-
-				<section data-state="customevent">
-					<h2>State Events</h2>
-					<p>
-						Additionally custom events can be triggered on a per slide basis by binding to the <code>data-state</code> name.
-					</p>
-					<pre><code class="javascript" data-trim contenteditable style="font-size: 18px;">
-Reveal.addEventListener( 'customevent', function() {
-	console.log( '"customevent" has fired' );
-} );
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Take a Moment</h2>
-					<p>
-						Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want to take distracting slides off the screen.
-					</p>
-				</section>
-
-				<section>
-					<h2>Much more</h2>
-					<ul>
-						<li>Right-to-left support</li>
-						<li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-						<li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-					</ul>
-				</section>
-
-				<section style="text-align: left;">
-					<h1>THE END</h1>
-					<p>
-						- <a href="http://slides.com">Try the online editor</a> <br>
-						- <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-					</p>
-				</section>
-
-			</div>
-
+    # and wait for the result to come back to us
+    receive do
+      final_answer when is_integer(final_answer) ->
+        "Result is #{inspect final_answer}"
+    end
+  end
+end
+                       </code></pre>
+                       <aside class="notes">
+                           <code>create_processes</code> will create a chain of processes in memory, with one process
+                           hooked to send to the previous process.  The chain will be started when the last process
+                           in the chain is sent 0, then <code>receive</code> waits for the messages to travel back
+                           through the chain to this process it pass itself as <code>self</code> as the first process
+                           in the chain.
+                       </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (3)</h1>
+                        <pre class="stretch"><code data-trim>
+defmodule ElixirLunchAndLearn.Chain do
+  def counter(next_pid) do
+    receive do
+      n ->
+        send next_pid, n + 1
+    end
+  end
+end
+                        </code></pre>
+                        <aside class="notes">
+                            Each process simply increments the number and passes it to the <code>next_pid</code> back
+                            along the chain.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Process Time (4)</h1>
+                        <pre class="stretch"><code data-trim>
+> elixir --erl "+P 1000000" -r lib/elixir_lunch_and_learn/chain.ex -e "ElixirLunchAndLearn.Chain.run(1_000_000)"
+Result is 1000000 (Calculated in 11658944 microseconds)
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                That's 1 million processes in 11 million 658 thousand and 944 microseconds, in other words
+                                11.7 seconds.  That also means each process takes 11.7 microseconds to spawn, do its work
+                                and go on to the next.
+                            </p>
+                            <p>
+                                For reference, Apple's
+                                <a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/Multithreading/CreatingThreads/CreatingThreads.html">
+                                    own measurements
+                                </a> say it takes 90 microseconds to just spawn a thread.  The OS thread limit is 10240
+                                on my machine.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                  <section class="stack">
+                    <section id="resources">
+                        <h1>Resources</h1>
+                    </section>
+                    <section>
+                        <h1>Intros</h1>
+                        <ul>
+                            <li><a href="http://howistart.org/posts/elixir/1">How I Start</a></li>
+                            <li><a href="http://learnxinyminutes.com/docs/elixir/">Learn X in Y</a></li>
+                        </ul>
+                        <aside class="notes">
+                            Code samples for the Elixir stack of slides was taken from Learn X in Y.
+                        </aside>
+                    </section>
+                    <section>
+                        <h1>Help</h1>
+                        <ul>
+                            <li><a href="https://webchat.freenode.net/?channels=elixir-lang">#elixir-lang</a></li>
+                            <li><a href="https://groups.google.com/forum/#!forum/elixir-lang-talk">elixir-lang-talk</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h1>Vidoes</h1>
+                        <ul>
+                            <li><a href="http://elixirsips.com">elixirsips.com</a></li>
+                            <li><a href="http://infoq.com">InfoQ</a></li>
+                            <li><a href="https://www.youtube.com/user/ErlangSolutions">Erlang Solutions on Youtube</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h1>Books</h1>
+                        <ul>
+                            <li><a href="https://pragprog.com/book/elixir/programming-elixir">Programming Elixir</a></li>
+                            <li><a href="https://pragprog.com/book/cmelixir/metaprogramming-elixir">Metaprogramming Elixir</a></li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h1>Websites</h1>
+                        <ul>
+                            <li><a href="http://elixir-lang.org">elixir-lang.org</a></li>
+                            <li><a href="https://github.com/h4cc/awesome-elixir">Awesome Elixir</a></li>
+                        </ul>
+                    </section>
+                </section>
+            </div>
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
