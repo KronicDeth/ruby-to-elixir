@@ -114,13 +114,93 @@
                 <section>
                     <h1>Outline</h1>
                     <ol>
-                        <li><a href="#/functional-languages">Functional Languages</a></li>
-                        <li><a href="#/erlang">Erlang</a></li>
-                        <li><a href="#/elixir">Elixir</a></li>
-                        <li><a href="#/why-elixir-and-not-erlang">Why Elixir and not Erlang?</a></li>
-                        <li><a href="#/examples">Examples</a></li>
-                        <li><a href="#/resources">Resources</a></li>
+                        <li>
+                            <a href="#/installation">Installation</a>
+                        </li>
                     </ol>
+                </section>
+                <section class="stack">
+                    <section id="installation">
+                        <h1>Installation</h1>
+                        <ul>
+                            <li><a href="#/installation-osx">OSX</a></li>
+                            <li><a href="#/installation-windows">Windows</a></li>
+                        </ul>
+                    </section>
+                    <section id="installation-osx">
+                        <h1>OSX</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Homebrew</td>
+                                <td>
+                                    <code>brew install ruby</code>
+                                </td>
+                                <td>
+                                    <code>brew install elixir</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Version Manager</td>
+                                <td>
+                                    <code>rvm install VERSION</code>
+                                </td>
+                                <td>
+                                    <code>kiex install VERSION</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                If you use <code>kiex</code>, you'll need to install Erlang separately using either
+                                <code>kerl</code>, spelled K-E-R-L, or homebrew
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="installation-windows">
+                        <h1>Windows</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Installer</td>
+                                <td>
+                                    <a href="http://rubyinstaller.org/">
+                                        <code>rubyinstaller.exe</code>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="https://s3.amazonaws.com/s3.hex.pm/elixir-websetup.exe">
+                                        <code>elixir-websetup.exe</code>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Chocolatey</td>
+                                <td>
+                                    <code>cinst ruby</code>
+                                </td>
+                                <td>
+                                    <code>cinst elixir</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
                 </section>
                 <section class="stack">
                     <section id="functional-languages">
