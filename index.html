@@ -117,6 +117,9 @@
                         <li>
                             <a href="#/installation">Installation</a>
                         </li>
+                        <li>
+                            <a href="#/interactive">Interactive</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -200,6 +203,88 @@
                             </tr>
                             </tbody>
                         </table>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="interactive">
+                        <h1>Interactive</h1>
+                        <ul>
+                            <li>
+                                <a href="#/interactive-starting">Starting</a>
+                            </li>
+                            <li>
+                                <a href="#/interactive-breaking">Breaking</a>
+                            </li>
+                            <li>
+                                <a href="#/interactive-exiting">Exiting</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="interactive-starting">
+                        <h1>
+                            Starting Interactive
+                        </h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Ruby</th>
+                                    <th>Elixir</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>irb</code>
+                                </td>
+                                <td>
+                                    <code>iex</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="interactive-breaking">
+                        <h1>Breaking the current command</h1>
+                        <table>
+                            <thread>
+                                <tr>
+                                    <th>Ruby</th>
+                                    <th>Elixir</th>
+                                </tr>
+                            </thread>
+                            <tbody>
+                            <tr>
+                                <th>CTRL+C</th>
+                                <th><code>#iex:break</code> on line by itself</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            If you make a typing mistake in <code>irb</code>, you're probably used to hitting CTRL+C,
+                            but if you do that in <code>iex</code> you'll get a prompt asking whether to abort, continue,
+                            kill, and some other options.  To mimic the behavior of CTRL+C from <code>irb</code>, type
+                            the comment <code>iex</code> colon <code>break</code> on a line by itself.
+                        </aside>
+                    </section>
+                    <section id="interactive-exiting">
+                        <table>
+                            <thread>
+                                <tr>
+                                    <th>Ruby</th>
+                                    <th>Elixir</th>
+                                </tr>
+                            </thread>
+                            <tbody>
+                            <tr>
+                                <th><code>exit</code></th>
+                                <th>CTRL+C CTRL+C</th>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            A single CTRL+C in <code>iex</code> will bring up the break handler, which allows you to
+                            inspect the running VM and kill individual processes.
+                        </aside>
                     </section>
                 </section>
                 <section class="stack">
