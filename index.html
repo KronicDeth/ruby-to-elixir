@@ -2270,6 +2270,14 @@ Result is 1000000 (Calculated in 11658944 microseconds)
                 width: 2048,
                 height: 1280,
 
+
+                // Slide number formatting can be configured using these variables:
+                //  h: current slide's horizontal index
+                //  v: current slide's vertical index
+                //  c: current slide index (flattened)
+                //  t: total number of slides (flattened)
+                slideNumber: 'c / t',
+
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
 				// Optional reveal.js plugins
