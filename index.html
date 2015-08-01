@@ -120,6 +120,9 @@
                         <li>
                             <a href="#/interactive">Interactive</a>
                         </li>
+                        <li>
+                            <a href="#/types">Types</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -284,6 +287,473 @@
                         <aside class="notes">
                             A single CTRL+C in <code>iex</code> will bring up the break handler, which allows you to
                             inspect the running VM and kill individual processes.
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="types">
+                        <h1>Types</h1>
+                        <ul>
+                            <li>
+                                <a href="#/types-numeric">Numeric</a>
+                            </li>
+                            <li>
+                                <a href="#/types-constant">Constant</a>
+                            </li>
+                            <li>
+                                <a href="#/types-boolean">Boolean</a>
+                            </li>
+                            <li>
+                                <a href="#/types-string">String</a>
+                            </li>
+                            <li>
+                                <a href="#/types-anonymous-function">Anonymous Function</a>
+                            </li>
+                            <li>
+                                <a href="#/types-collection">Collection</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="types-numeric">
+                        <h1>Numeric Types</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Example</th>
+                                <th>Name</th>
+                                <th>Example</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Integer</td>
+                                <td>
+                                    <code>9</code>, <code>0b1</code>, <code>0o7</code>, <code>0xF</code>
+                                </td>
+                                <td>Integer</td>
+                                <td>
+                                    <code>9</code>, <code>0b1</code>, <code>0o7</code>, <code>0xF</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Float</td>
+                                <td>
+                                    <code>1.2</code>, <code>3e+0</code>
+                                </td>
+                                <td>float</td>
+                                <td>
+                                    <code>1.2</code>, <code>3e+0</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Integer formats are the same for Ruby and Elixir.  They both support, decimal, binary,
+                                octal, and hexadecimal.  Underscore (_) can be used to separate digit groups.
+                            </p>
+                            <p>
+                                Float formats are the same for Ruby and Elixir.  They both support 'e' notation.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="types-constant">
+                        <h1>Constant Types</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Example</th>
+                                <th>Name</th>
+                                <th>Example</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Symbol</td>
+                                <td>
+                                    <code>:symbol</code>, <code>:"symbol"</code>, <code>:'symbol'</code>
+                                </td>
+                                <td>Atom</td>
+                                <td>
+                                    <code>:atom</code>, <code>:"atom"</code>, <code>:'atom'</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Class/Module name</td>
+                                <td>
+                                    <code>MyClass</code>, <code>MyNamespace::MyModule</code>
+                                </td>
+                                <td>Alias</td>
+                                <td>
+                                    <code>MyModule</code>, <code>MyNamespace.MyModule</code>, <code>:erlang_module</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Constant</td>
+                                <td>
+                                    <code>MY_CONSTANT</code>
+                                </td>
+                                <td>Module Attribute</td>
+                                <td>
+                                    <code>@my_attribute</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Symbol in Ruby just becomes the word Atom in Elixir.
+                            </p>
+                            <p>
+                                Class/Module names and Aliases both share camel-casing, but namespaces in Class/Module
+                                names are separated with colon-colon (::), while Alias names are separated with dot (.).
+                                Additionally, Erlang modules are just atoms.  Aliases are called Aliases because they
+                                are actually syntactic sugar with an atom starting with Elixir dot (Elixir.)
+                            </p>
+                            <p>
+                                Your brain may read module attributes as being like class instance variables in Ruby
+                                since they both start with at (@) and look like a variable, but module attributes don't
+                                get assigned to with equals (=), instead they are referenced before the value to put into
+                                the module attribute.  This is because module attributes can be configured to either
+                                reset their value or accumulate all values passed to them.  This allows for some nice
+                                features, which I'll get to later.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="types-boolean">
+                        <h1>Boolean Types</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>false</code>
+                                </td>
+                                <td>
+                                    <code>false</code>, <code>:false</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>nil</code>
+                                </td>
+                                <td>
+                                    <code>nil</code>, <code>:nil</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>true</code>
+                                </td>
+                                <td>
+                                    <code>true</code>, <code>:true</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                In Elixir, false, nil, and true are all just syntactic sugar for the atoms of the same
+                                name.
+                            </p>
+                            <p>
+                                Both Ruby and Elixir has falsy logic, so both false and nil are false for boolean
+                                operations.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="types-string">
+                        <h1>Strings</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Format</th>
+                                <td>
+                                    <code>"string"</code>
+                                </td>
+                                <td></td>
+                                <td>
+                                    <code>"string"</code>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Interpolation</th>
+                                <td>
+                                    <code>"Hello #{:world}"</code>
+                                </td>
+                                <td>&#10003;</td>
+                                <td>
+                                    <code>"Hello #{:world}"</code>
+                                </td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Encoding</th>
+                                <td>UTF-8</td>
+                                <td></td>
+                                <td>UTF-8</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Unicode Capitalization</th>
+                                <td>
+                                    <code>"José Valim".upcase # "JOSé VALIM"</code>
+                                </td>
+                                <td>&#10060;</td>
+                                <td>
+                                    <code>String.upcase "José Valim" # "JOSÉ VALIM"</code>
+                                </td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Unicode Graphemes Rendering</th>
+                                <td>
+                                    <code>"\u0065\u0301" # "é"</code>
+                                </td>
+                                <td>&#10003;</td>
+                                <td>
+                                    <code>"\x{0065}\x{0301}" # "é"</code>
+                                </td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Unicode Graphemes Length</th>
+                                <td>
+                                    <code>"\u0065\u0301".length # 2</code>
+                                </td>
+                                <td>&#10060;</td>
+                                <td>
+                                    <code>String.length "\x{0065}\x{0301}" # 1</code>
+                                </td>
+                                <td>&#10003;</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Ruby and Elixir support double quoted strings with interpolation encoded as UTF-8
+                            </p>
+                            <p>
+                                Elixir excels at proper unicode handling compared to Ruby: Elixir properly capitalizes
+                                e-acute (é) in José Valim while Ruby does not; Elixir properly handles the separate
+                                e and acute accent being one grapheme while Ruby counts them as 2 characters for the
+                                string length.
+                            </p>
+                            <p>
+                                If you care about what the user actually sees, you want the number of graphemes in a
+                                string, not the raw bytes, so Elixir's approach is correct.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="types-anonymous-function">
+                        <h1>Anonymous Functions</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Declaration</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>add = ->(a,b){ a + b }</code>
+                                        </li>
+                                        <li>
+                                            <code>add = lambda { |a,b| a + b }</code>
+                                        </li>
+                                        <li>
+                                            <code>add = proc { |a,b| a + b }</code>
+                                        </li>
+                                        <li>
+                                            <code>add = Proc.new { |a, b| a + b}</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>add = fn a, b -> a + b end</code>
+                                        </li>
+                                        <li>
+                                            <code>add = fn (a, b) -> a + b end</code>
+                                        </li>
+                                        <li>
+                                            <code>add = &(&1 + &2)</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Calling</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>add.call(1,2)</code>
+                                        </li>
+                                        <li>
+                                            <code>add.call 1, 2</code>
+                                        </li>
+                                        <li>
+                                            <code>add.(1,2)</code>
+                                        </li>
+                                        <li>
+                                            <code>add[1,2]</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>add.(1,2)</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="types-collection">
+                        <h1>Collections</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>Name</th>
+                                <th>Example</th>
+                                <th>Name</th>
+                                <th>Example</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Array</td>
+                                <td>
+                                    <code>[1,2,3]</code>
+                                </td>
+                                <td>Tuple</td>
+                                <td>
+                                    <code>[1,2,3]</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hash</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>{a: 1, b: 2}</code>
+                                        </li>
+                                        <li>
+                                            <code>{:a => 1, :b => 2}</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>Map</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>%{a: 1, b: 2}</code>
+                                        </li>
+                                        <li>
+                                            <code>%{:a => 1, :b => 2}</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Set</td>
+                                <td>
+                                    <code>Set.new [1,2,3]</code>
+                                </td>
+                                <td>HashSet</td>
+                                <td>
+                                    <code>Enum.into [1,2,3], HashSet.new</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&#10060;</td>
+                                <td>&#10060;</td>
+                                <td>Linked List</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>[1,2,3]</code>
+                                        </li>
+                                        <li>
+                                            <code>[1 | [2 | [3 | []]]]</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&#10060;</td>
+                                <td>&#10060;</td>
+                                <td>Keyword List</td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>[a: 1, a: 2, b: 3]</code>
+                                        </li>
+                                        <li>
+                                            <code>[{:a, 1}, {:a, 2}, {:b, 3}]</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Arrays and tuples are both contiguous in memory, but tuples are a fixed size while Ruby
+                                Arrays are resizable.  Both allow lookup by index.
+                            </p>
+                            <p>
+                                Both Set and HashSet are built on top of Hashes and don't support a built-in syntax
+                                for initialization, and so here are populated using an Array and Linked List,
+                                respectively.
+                            </p>
+                            <p>
+                                Linked list can access the first (head) element or the rest (tail) elements quickly.
+                                The Ruby standard library has linked list implementation.  The
+                                <a href="https://github.com/hamstergem/hamster#list-api-documentation">
+                                    hamster gem has <code>Hamster.list</code>
+                                </a>.
+                            </p>
+                            <p>
+                                A Keyword List allows multiple values for the same key and is implemented as a list
+                                of 2-tuples.  So, not as efficient as a map, which is built is optimized, but useful
+                                for named function arguments where an option can be repeated.
+                            </p>
                         </aside>
                     </section>
                 </section>
