@@ -443,6 +443,9 @@
                                 <a href="#/types-string">String</a>
                             </li>
                             <li>
+                                <a href="#/types-regular-expression">Regular Expression</a>
+                            </li>
+                            <li>
                                 <a href="#/types-anonymous-function">Anonymous Function</a>
                             </li>
                             <li>
@@ -702,6 +705,93 @@
                                 If you care about what the user actually sees, you want the number of graphemes in a
                                 string, not the raw bytes, so Elixir's approach is correct.
                             </p>
+                        </aside>
+                    </section>
+                    <section id="types-regular-expression">
+                        <h1>Regular Expressions</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>Literals</th>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>/[A-Z]+/</code>
+                                        </li>
+                                        <li>
+                                            <code>%r{[A-Z]+}</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                                <td>
+                                    <ul>
+                                        <li>
+                                            <code>~r{[A-Z]+}</code>
+                                        </li>
+                                        <li>
+                                            <code>~r[(.*)]</code>
+                                        </li>
+                                        <li>
+                                            <code>~r&lt;[A-Z]+&gt;</code>
+                                        </li>
+                                        <li>
+                                            <code>~r"[A-Z]+"</code>
+                                        </li>
+                                        <li>
+                                            <code>~r/[A-Z]+/</code>
+                                        </li>
+                                        <li>
+                                            <code>~r([A-Z]+)</code>
+                                        </li>
+                                        <li>
+                                            <code>~r|[A-Z]+|</code>
+                                        </li>
+                                        <li>
+                                            <code>~r'[A-Z]+'</code>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Compile</th>
+                                <td>
+                                    <code>Regexp.new "string"</code>
+                                </td>
+                                <td>
+                                    <code>Regexp.compile! "string"</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Replace</th>
+                                <td>
+                                  <pre><code class="ruby">
+'`spec` is a task for `rake`'.gsub(
+  /`(.*?)`/,
+  '&lt;code&gt;\1&lt;/code&gt;'
+) # "&lt;code&gt;test&lt;/code&gt; is a task for &lt;code&gt;rake&lt;/code&gt;"
+                                  </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir">
+Regex.replace(
+  ~r/`(.*?)`/,
+  "`test` is a task for `mix`",
+  "&lt;code&gt;\\1&lt;/code&gt;"
+) # &lt;code&gt;test&lt;/code&gt; is a task for &lt;code&gt;mix&lt;/code&gt;"
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            Unlike Ruby, which only allows
                         </aside>
                     </section>
                     <section id="types-anonymous-function">
