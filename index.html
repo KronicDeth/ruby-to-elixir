@@ -115,6 +115,9 @@
                     <h1>Outline</h1>
                     <ol>
                         <li>
+                            <a href="#/overview">Overview</a>
+                        </li>
+                        <li>
                             <a href="#/installation">Installation</a>
                         </li>
                         <li>
@@ -124,6 +127,107 @@
                             <a href="#/types">Types</a>
                         </li>
                     </ol>
+                </section>
+                <section class="stack">
+                    <section id="overview">
+                        <h1>Overview</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th rowspan="4">Paradigms</th>
+                                <th>Imperative</th>
+                                <td>&#10003;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Concurrent</th>
+                                <td></td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Functional</th>
+                                <td>&#10003;</td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Object-Oriented</th>
+                                <td>&#10003;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th rowspan="3">Typing</th>
+                                <th>Dynamic</th>
+                                <td>&#10003;</td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th>Duck</th>
+                                <td>&#10003;</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Strong</th>
+                                <td></td>
+                                <td>&#10003;</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Mutability</th>
+                                <td>Mutable</td>
+                                <td>Immutable</td>
+                            </tr>
+                            <tr>
+                                <th rowspan="2">Concurrency</th>
+                                <th>CPU-bound</th>
+                                <td>OS Processes</td>
+                                <td>VM Processes</td>
+                            </tr>
+                            <tr>
+                                <th>IO-bound</th>
+                                <td>Threads, Fibers</td>
+                                <td>VM Processes</td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Metaprogramming</th>
+                                <td>Runtime, Class Methods</td>
+                                <td>Compilation, Macros</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Elixir is a functional language that is dynamically typed using immutable
+                                data that is highly concurrent.
+                            </p>
+                            <p>
+                                Elixir, like other functional languages, asserts that the state hiding of Object-Oriented
+                                programming is incompatible with the concurrent programming required on modern multi-core
+                                architectures because mutable objects can't safely be shared between threads.
+                            </p>
+                            <p>
+                                MRI Ruby's go-to concurrency approach of forking a process has too high of a overhead and is
+                                only tolerable on system with Copy-On-Write (COW) fork, which excludes Windows.  Threading
+                                and fibers in the MRI cannot get around the GIL and so only help with IO-bound code.
+                            </p>
+                            <p>
+                                On the other hand, Elixir uses the Erlang VM, which thanks to the immutable data, can run
+                                isolated processes inside the VM so fast and so cheaply that my laptop can run 1 million
+                                processes in 11 seconds with processes distributed across all 4 cores.
+                            </p>
+                            <p>
+                                Switching from imperative, mutable, object-oriented Ruby to functional, immutable,
+                                concurrent Elixir may be intimidating, but I'll show you how easy it is to translate your
+                                Ruby skills to Elixir to quickly get started learning Elixir on your own.
+                            </p>
+                        </aside>
+                    </section>
                 </section>
                 <section class="stack">
                     <section id="installation">
