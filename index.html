@@ -127,6 +127,9 @@
                             <a href="#/types">Types</a>
                         </li>
                         <li>
+                            <a href="#/control-flow">Control Flow</a>
+                        </li>
+                        <li>
                             <a href="#/pattern-matching">Pattern Matching</a>
                         </li>
                     </ol>
@@ -982,6 +985,288 @@ Regex.replace(
                                 A Keyword List allows multiple values for the same key and is implemented as a list
                                 of 2-tuples.  So, not as efficient as a map, which is built is optimized, but useful
                                 for named function arguments where an option can be repeated.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="control-flow">
+                        <h1>Control Flow</h1>
+                        <ul>
+                            <li>
+                                <a href="#/control-flow-boolean">Boolean</a>
+                            </li>
+                            <li>
+                                <a href="#/control-flow-rescue">Rescue</a>
+                            </li>
+                            <li>
+                                <a href="#/control-flow-catch">Catch</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="control-flow-boolean">
+                        <h1>Boolean Control Flow</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby">
+if false
+  'This will never be seen'
+else
+  'This will'
+end
+                                    </code></pre>
+
+                                </td>
+                                <td>
+                                    <pre><code class="elixir">
+if false do
+  "This will never be seen"
+else
+  "This will"
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby">
+unless true
+  'This will never be seen'
+else
+  'This will'
+end
+                                    </code></pre>
+
+                                </td>
+                                <td>
+                                    <pre><code class="elixir">
+unless true do
+  "This will never be seen"
+else
+  "This will"
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby">
+if one
+  'one is true'
+elsif two
+  'two is true'
+else
+  'neither one nor two is true'
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir">
+cond do
+  one -> "one is true"
+  two -> "two is true"
+  true -> "neight one nor two is true"
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Take note that if and unless look the same in Ruby and Elixir, except that Elixir has a
+                                'do' after the condition.  I'll explain why that is later.
+                            </p>
+                            <p>
+                                Although Elixir has control flow, it is rare in idiomatic code to see if, unless or
+                                cond.  It is much more likely to see pattern matching, which I'll cover next.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="control-flow-rescue">
+                        <h1>Rescuing Exceptions</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                  <pre><code class="ruby" data-trim>
+begin
+  raise 'some error'
+rescue RuntimeError => runtime_error
+  puts runtime_error
+rescue ArgumentError
+  puts 'argument error occurred'
+rescue => exception
+  puts exception
+rescue
+  puts 'some exception'
+else
+  puts 'no exception'
+ensure
+  puts 'always runs'
+end
+                                  </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+try do
+  raise "some error"
+rescue
+  x in [RuntimeError] ->
+    IO.puts x.message
+  ArgumentError ->
+    IO.puts "argument error occurred"
+  error ->
+    IO.puts error
+  _ ->
+    IO.puts "some error"
+else
+  IO.puts "no error"
+after
+  puts "always run"
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>begin</code>
+                                </td>
+                                <td>
+                                    <code>try do</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rescue Klass => instance</code>
+                                </td>
+                                <td>
+                                    <code>variable in [Alias] -></code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rescue Klass</code>
+                                </td>
+                                <td>
+                                    <code>Alias -></code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rescue => exception</code>
+                                </td>
+                                <td>
+                                    <code>error -></code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rescue</code>
+                                </td>
+                                <td>
+                                    <code>_ -></code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>else</code>
+                                </td>
+                                <td>
+                                    <code>else</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>ensure</code>
+                                </td>
+                                <td>
+                                    <code>after</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                                <td>
+                                    <code>end</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="control-flow-catch">
+                        <h1>Catching Throws And Exits</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+answer = nil
+catch (:done) do
+  answer = 42
+  throw :done
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+try do
+  name = "Alice"
+  throw("Hello", name)
+  exit "I am exiting"
+catch
+  {greeting, name} ->
+    IO.puts "#{greeting} to you, #{name}"
+  :exit, _ -> "not really"
+after
+  IO.puts "Nothing thrown"
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Catch and throw are quite esoteric in ruby.  The only case I can think of them being used
+                                in production is in parts of Rack.
+                            </p>
+                            <p>
+                                In Elixir, catch and throw is only meant for use when you can't send a message up the
+                                stack any other way.  However, Elixir's catch is far more flexible as the throw and
+                                catch don't have to agree on single symbol to match on the way Ruby does.
+                            </p>
+                            <p>
+                                Catch and exit are used all the time to monitor for VM processes exiting.  VM processes
+                                monitoring each other is part of the resiliency features of Elixir, so it is very
+                                important.  Most of the time, the standard library will handle the exit catching behind
+                                the scenes.
+                            </p>
+                            <p>
+                                You may have also noticed that rescuing exceptions and catching throws and exits all use
+                                try.  It is actually possible to rescue exceptions and catch throws and exits in the
+                                same try.
                             </p>
                         </aside>
                     </section>
