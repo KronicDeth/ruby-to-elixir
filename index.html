@@ -126,6 +126,9 @@
                         <li>
                             <a href="#/types">Types</a>
                         </li>
+                        <li>
+                            <a href="#/pattern-matching">Pattern Matching</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -984,12 +987,345 @@ Regex.replace(
                     </section>
                 </section>
                 <section class="stack">
+                    <section id="pattern-matching">
+                        <h1>Pattern Matching</h1>
+                        <ul>
+                            <li>
+                                <a href="#/pattern-matching-variable-match">Assignment to Match</a>
+                            </li>
+                            <li>
+                                <a href="#/pattern-matching-destructing-to-match">Destructuring to Match</a>
+                            </li>
+                            <li>
+                                <a href="#/pattern-matching-argument-error-to-match">ArgumentError to Match</a>
+                            </li>
+                            <li>
+                                <a href="#/pattern-matching-function-clauses">Function Clauses</a>
+                            </li>
+                            <li>
+                                <a href="#/pattern-matching-case-statements">If Else to Case Statements</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="pattern-matching-variable-match">
+                        <h1>Ruby Assignment to Elixir Matching</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Step</th>
+                                <th></th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>
+                                    1
+                                </th>
+                                <th>
+                                    <code>foo = 1</code>
+                                </th>
+                                <td>
+                                    <code>foo</code> is <code>1</code>
+                                </td>
+                                <td>
+                                    <code>foo</code> is <code>1</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>2</th>
+                                <th>
+                                    <code>1 = foo</code>
+                                </th>
+                                <td>
+                                    SyntaxError
+                                </td>
+                                <td>
+                                    <code>foo</code> is <code>1</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>3</th>
+                                <th>
+                                    <code>2 = foo</code>
+                                </th>
+                                <td>
+                                    SyntaxError
+                                </td>
+                                <td>
+                                    ** (MatchError) no match of right hand side value: 1
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                In Elixir, the equals sign (=) is the match operator.  The match operator should not be
+                                thought of as assignment, but instead of trying to get the two sides of the equals sign
+                                to match, which is why you can do foo equals 1 or 1 equals foo.
+                            </p>
+                            <p>
+                                However, after already doing foo equals 1 (foo = 1) you can't do 2 equals foo because
+                                the match operator will only rebind a variable if it is on the left-hand side.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="pattern-matching-destructing-to-match">
+                        <h1>Destructuring to Match</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>Expression</th>
+                                <th>Variable Value(s)</th>
+                                <th>Expression</th>
+                                <th>Variable Value(s)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>a, b = [1, 2]</code>
+                                </td>
+                                <td>
+                                    <code>a = 1</code><br/>
+                                    <code>b = 2</code>
+
+                                </td>
+                                <td>
+                                    <code>{a, b} = {1, 2}</code>
+                                </td>
+                                <td>
+                                    <code>a = 1</code><br/>
+                                    <code>b = 2</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>_, b = [1, 2]</code>
+                                </td>
+                                <td>
+                                    <code>b = 2</code>
+                                </td>
+                                <td>
+                                    <code>{_, b} = {1, 2}</code>
+                                </td>
+                                <td>
+                                    <code>b = 2</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>a, b* = [1, 2, 3]</code>
+                                </td>
+                                <td>
+                                    <code>a = 1</code><br/>
+                                    <code>b = [2, 3]</code>
+                                </td>
+                                <td>
+                                    <code>[a | b] = [1, 2, 3] # a = 1; b = [2,3]</code>
+                                </td>
+                                <td>
+                                    <code></code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                    <section id="pattern-matching-argument-error-to-match">
+                        <h1>ArgumentError to Match</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>Expression</th>
+                                <th>Variable Value(s)</th>
+                                <th>Expression</th>
+                                <th>Variable Value(s)</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code>
+a, b = [nil, 2]
+unless a == 1
+  raise ArgumentError,
+        "a should be 1"
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    ArgumentError: a should be 1
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+{1, b} = {0, 2}
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    ** (MatchError) no match of right hand side value: {nil, 2}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <pre><code data-trim>
+opening, closing = [:td, :th]
+unless opening == closing
+  raise ArgumentError,
+        "opening and closing tag don't match"
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    ArgumentError: opening and closing tag don't match
+                                </td>
+                                <td>
+                                    <pre><code data-trim>
+{tag, tag} = {:td, :th}
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    * (MatchError) no match of right hand side value: {:td, :th}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Instead of destructuring an argument and then checking its value as would be required in
+                                Ruby, you can put the expected value into the pattern in Elixir and have Elixir check
+                                the value for you.
+                            </p>
+                            <p>
+                                The patterns automatically will enforce that when the same variable is used more than
+                                once it must have the same value.  For example, you could check the closing and opening
+                                tag match when parsing XML.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="pattern-matching-function-clauses">
+                        <h1>Function Clauses</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code>
+def cat_greet(who)
+  case who
+  when :owner
+    'Purr!'
+  when :dog
+    'Hiss!'
+  else
+    '*ignore*'
+end
+cat_greet(:owner) # "Purr!"
+cat_greet(:dog) # "Hiss!"
+cat_greet(:sitter) # "*ignore*"
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code data-trim>
+cat_greet = fn
+  :owner -> "Purr!"
+  :dog -> "Hiss!"
+  - -> "*ignore*"
+end
+
+cat_greet.(:owner) # "Purr!"
+cat_greet.(:dog) # "Hiss!"
+cat_greet.(:sitter) # "*ignore*"
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Using pattern matching, we can have a function behave differently based on its inputs
+                                without the need to write our own conditional logic.  In ruby, we're stuck with a
+                                case statement unless the argument is a class and the responses can be made polymorphic.
+                            </p>
+                            <p>
+                                The pattern matching is very efficient in the compiled BEAM bytecode.  If multiple
+                                function clauses have to same prefix, such when matching strings or packets, the compiler
+                                will produce a tree of check so that the prefix is matched first before moving on to
+                                the parts of the pattern that differs.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="pattern-matching-case-statements">
+                        <h1>If-else to case</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <td>
+                                <pre><code data-trim>
+fizz = n % 3 == 0
+buzz = n % 5 == 0
+
+if fizz && buzz
+  'FizzBuzz'
+elsif fizz
+  'Fizz'
+elsif buzz
+  'Buzz'
+else
+  n
+end
+                                </code></pre>
+                            </td>
+                            <td>
+                                <pre><code data-trim>
+case {rem(n, 3), rem(n, 5), n} do
+  {0, 0, _} -> "FizzBuzz"
+  {0, _, _} -> "Fizz"
+  {_, 0, _) -> "Buzz"
+  {_, _, n} -> n
+end
+                                </code></pre>
+                            </td>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                In Ruby, the case statement uses the triple-equals (===) operator to allow when
+                                clauses that match either the exact value or be of the same Class or Regexp match the
+                                argument to when.
+                            </p>
+                            <p>
+                                In Elixir, case statements are a way to match a bunch of patterns in order the same as
+                                with function clauses.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
                     <section id="elixir">
                         <h1>Elixir</h1>
                     </section>
                     <section>
                         <h1>Modules and Functions</h1>
-                        <pre><code datat-trim>
+                        <pre><code data-trim>
 defmodule Math do
   def sum(a, b) do
     a + b
