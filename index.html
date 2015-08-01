@@ -207,11 +207,6 @@
                                 data that is highly concurrent.
                             </p>
                             <p>
-                                Elixir, like other functional languages, asserts that the state hiding of Object-Oriented
-                                programming is incompatible with the concurrent programming required on modern multi-core
-                                architectures because mutable objects can't safely be shared between threads.
-                            </p>
-                            <p>
                                 MRI Ruby's go-to concurrency approach of forking a process has too high of a overhead and is
                                 only tolerable on system with Copy-On-Write (COW) fork, which excludes Windows.  Threading
                                 and fibers in the MRI cannot get around the GIL and so only help with IO-bound code.
@@ -220,6 +215,27 @@
                                 On the other hand, Elixir uses the Erlang VM, which thanks to the immutable data, can run
                                 isolated processes inside the VM so fast and so cheaply that my laptop can run 1 million
                                 processes in 11 seconds with processes distributed across all 4 cores.
+                            </p>
+                            <p>
+                                Just as you learned imperative programming over mathematical thinking, you can retrain
+                                to think in functional languages and even switch back and forth.  I currently switch
+                                between Java, Ruby, and Elixir.  With only a few hiccups on namespace syntax and
+                                string quoting.  If you're used to using <code>map</code> or <code>select</code> from
+                                <code>Enumerable</code> in Ruby, you are already using functional programming.  If you
+                                ever used class methods in Ruby that didn't write to class or instance variable, you're
+                                already using functional programming.
+                            </p>
+                            <p>
+                                Learning functional programming will also prepare you for the future.  If you watch
+                                conference talks in other languages, such as Javascript or C++, languages are moving to
+                                have more and more functional features as the programming community adapts to the
+                                many-cores future.  They have figured out that locks, threads, and shared mutable
+                                state is too error prone.
+                            </p>
+                            <p>
+                                Moore's law increasing processor speed stopped 10 years ago. If you want to take
+                                advantage of Moore's law now and in the future you need to write concurrent programs now
+                                that can be parallelized across the additional cores of the future automatically.
                             </p>
                             <p>
                                 Switching from imperative, mutable, object-oriented Ruby to functional, immutable,
@@ -873,103 +889,6 @@
                                 A Keyword List allows multiple values for the same key and is implemented as a list
                                 of 2-tuples.  So, not as efficient as a map, which is built is optimized, but useful
                                 for named function arguments where an option can be repeated.
-                            </p>
-                        </aside>
-                    </section>
-                </section>
-                <section class="stack">
-                    <section id="functional-languages">
-                        <h1>Functional Languages</h1>
-                    </section>
-                    <section>
-                        <h1>What is a functional language?</h1>
-                        <ul>
-                            <li>Mathematical functions</li>
-                            <li>Avoids changing state</li>
-                            <li>Immutable data</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>
-                                The output of a mathematical function depends only only on its inputs.  This makes
-                                mathematical functions easier to reason about because you can just substitute the output
-                                for the function call. Pure functional languages, like Haskell completely avoid changing
-                                state by encapsulating state changes in their data, but Erlang and Elixir are not pure
-                                like Haskell.
-                            </p>
-                            <p>
-                                Haskell is pure because all it's IO is recorded as data and it's only the VM evaluating
-                                that data as actions that cause external, side-effects.  Any function call in Haskell
-                                is completely specified by its inputs, which can include the previous IO actions that
-                                are queued up.
-                            </p>
-                            <p>
-                                By contrast, Erlang and Elixir do allow immediate side-effect by communicating with
-                                other processes.  STDIO and STDOUT is presentated by processes in Erlang and Elixir,
-                                so the impurity of doing IO is covered by process communication.
-                            </p>
-                        </aside>
-                    </section>
-                    <section>
-                        <h1>Advantages of functional languages</h1>
-                        <ul>
-                            <li>Lack of shared, mutable state</li>
-                            <li>Immutable data</li>
-                        </ul>
-                        <aside class="notes">
-                            Immutable data means you don't have to worry about a function call changing your copy of
-                            the arguments you pass to it.  Extending this across parallel threads, it means you don't
-                            have to worry about race conditions and other threading bugs.
-                        </aside>
-                    </section>
-                    <section>
-                        <h1>(Perceived) disadvantages</h1>
-                        <ul>
-                            <li>Cryptic syntax</li>
-                            <li>Harder to reason about immutability</li>
-                            <li>Recursion + accumulation harder than iteration and mutation</li>
-                            <li>"It's not how I think!"</li>
-                        </ul>
-                        <aside class="notes">
-                            <p>
-                                Functional languages originated from Church's lambda calculus which is super cryptic
-                                with only &lambda;, <code>x</code>, and <code>.</code>.  Other functional languages
-                                like the Lisps, including Scheme and Clojure, use more parentheses than most people are
-                                comfortable with. Haskell's syntax abstracts types and function arguments/returns and
-                                drops parantheses.
-                            </p>
-                            <p>
-                                Coming from an imperative and object oriented background we're so used to mutability
-                                that we think of it as normal even though when we first learned it, mutability was odd
-                                compared to math's fixed values for variables and pure functions.
-                            </p>
-                            <p>
-                                Because most languages don't support tail call optimization or the lesser tail call
-                                recursion, we've been trained to reach for the iterative solution to avoid stack
-                                overflows, but a lot of problems in computing have much nicer recursive solutions.
-                                With general tail call optimization, loops involving more than one function can be
-                                represented in what would look like recursion.
-                            </p>
-                            <p>
-                                Just as you learned imperative programming over mathematical thinking, you can retrain
-                                to think in functional languages and even switch back and forth.  I currently switch
-                                between Java, Ruby, and Elixir.  With only a few hiccups on namespace syntax and
-                                string quoting.  If you're used to using <code>map</code> or <code>select</code> from
-                                <code>Enumerable</code> in Ruby or the lambda expression features in Java 8, you are
-                                already using functional programming.  If you ever used class methods in Ruby that
-                                didn't write to class or instance variable.  Or, if you ever used static methods in
-                                Java.  You're already using functional programming.
-                            </p>
-                            <p>
-                                Learning functional programming will also prepare you for the future.  If you watch
-                                conference talks in other langauges, such as Javascript or C++, languages are moving to
-                                have more and more functional features as the programming community adapts to the
-                                many-cores future.  They have figured out that locks, threads, and shared mutable
-                                state is too error prone.
-                            </p>
-                            <p>
-                                Moore's law increasing processor speed stopped 10 years ago. If you want to take
-                                advantage of Moore's law now and in the future you need to write concurrent programs now
-                                that can be parallelized across the additional cores of the future automatically.
                             </p>
                         </aside>
                     </section>
