@@ -2385,27 +2385,86 @@ end
                     </section>
                     <section id="code-function-overloading">
                         <h1>Function Overloading</h1>
-                        <pre><code data-trim>
-defmodule Geometry do
-  def area({:rectangle, w, h}) do
-    w * h
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+class Rectangle
+  attr_reader :height, :width
+
+  def initialize(width, height)
+    @width = width
+    @height = height
   end
 
-  def area({:circle, r}) when is_number(r) do
-    3.14 * r * r
+  def area
+    width * height
   end
 end
 
-Geometry.area({:rectangle, 2, 3}) #=> 6
-Geometry.area({:circle, 3})       #=> 28.25999999999999801048
-                        </code></pre>
+Rectangle.new(2, 3).area # 6
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+class Circle
+  attr_reader :radius
+
+  def initialize(radius)
+    @radius = radius
+  end
+
+  def area
+    Math::PI * radius * radius
+  end
+end
+
+Circle.new(3).area # 28.274333882308138
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+defmodule Geometry do
+  def area({:rectangle, width, height}) do
+    width * height
+  end
+
+  def area({:circle, radius}) when is_number(radius) do
+    :math.pi * radius * radius
+  end
+end
+
+Geometry.area({:rectangle, 2, 3}) # 6
+Geometry.area({:circle, 3}) # 28.274333882308138
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <aside class="notes">
-                            A function can have multiple <code>def</code>s.  Allowing function overloading like
-                            in Java, but instead of matching on the class or interface, the overloading works based on
-                            pattern matching. Here, the clauses are matching on the atom and number of elements in the
-                            tuple.  <code>when is_number(r)</code> is guard.  Guards are used to restrict the type of
-                            parameters allowed or to enforce relationships between variable in a pattern that can't be
-                            expressed directly in the pattern shape.
+                            <p>
+                                A function can have multiple <code>def</code>s.  Allowing function overloading like
+                                in Java, but instead of matching on the class or interface, the overloading works based
+                                on pattern matching. Here, the clauses are matching on the atom and number of elements
+                                in the tuple.  <code>when is_number(r)</code> is guard.  Guards are used to restrict the
+                                type of parameters allowed or to enforce relationships between variable in a pattern
+                                that can't be expressed directly in the pattern shape.
+                            </p>
+                            <p>
+                                Using tagged tuples where the first element is an atom is one of the ways of adapting
+                                polymorphic code in Ruby with different implementations on different classes to Elixir.
+                            </p>
+                            <p>
+                                The tagged tuple format comes from Erlang, but Elixir has access to a better form of
+                                polymorphism with Structs and Protocols, which I'll cover later.
+                            </p>
                         </aside>
                     </section>
                     <section id="code-recursion">
