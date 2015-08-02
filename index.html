@@ -2481,11 +2481,11 @@ Geometry.area({:circle, 3}) # 28.274333882308138
                                 <td>
                                     <pre><code class="ruby" data-trim>
 def sum_array(array, acc)
-  if array.length > 0
+  if array.empty?
+    acc
+  else
     head, *tail = array
     sum_array(tail, acc + head)
-  else
-    acc
   end
 end
 
