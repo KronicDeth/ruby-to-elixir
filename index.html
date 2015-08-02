@@ -132,6 +132,9 @@
                         <li>
                             <a href="#/pattern-matching">Pattern Matching</a>
                         </li>
+                        <li>
+                            <a href="#/project">Project</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -1601,6 +1604,434 @@ end
                             <p>
                                 In Elixir, case statements are a way to match a bunch of patterns in order the same as
                                 with function clauses.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="project">
+                        <h1>Project</h1>
+                        <ul>
+                            <li>
+                                <a href="#/project-new">New</a>
+                            </li>
+                            <li>
+                                <a href="#/project-file-layout">File Layout</a>
+                            </li>
+                            <li>
+                                <a href="#/project-packaging">Packaging</a>
+                            </li>
+                            <li>
+                                <a href="#/project-dependency-source">Dependency Source</a>
+                            </li>
+                            <li>
+                                <a href="#/project-dependency-environment">Dependency Environment</a>
+                            </li>
+                            <li>
+                                <a href="#/project-dependency-special-features">Dependency Special Features</a>
+                            </li>
+                        </ul>
+                        <aside class="notes">
+                            <p>
+                                Let's start from the a clean state and say we're creating a new project.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-new">
+                        <h1></h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>gem install bundler</code>
+                                </td>
+                                <td>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>bundle gem example --coc --mit --test=rspec</code><br/>
+                                    <img src="images/bundle-gem.png"/>
+                                </td>
+                                <td>
+                                    <code>mix new example</code><br/>
+                                    <img src="images/mix-new.png"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                There is not step equivalent to <code>gem install bundler</code> for Elixir because
+                                mix is part of the Elixir install.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-file-layout">
+                        <h1>File Layout</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>example.gemspec</code>
+                                </td>
+                                <td>
+                                    <code>mix.exs</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>.gitignore</code>
+                                </td>
+                                <td>
+                                    <code>.gitignore</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>Gemfile</code>
+                                </td>
+                                <td>
+                                    <code>mix.exs</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>lib/example.rb</code>
+                                </td>
+                                <td>
+                                    <code>lib/example.ex</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>lib/example/version.rb</code>
+                                </td>
+                                <td>
+                                    <code>mix.exs</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>README.md</code>
+                                </td>
+                                <td>
+                                    <code>README.md</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>spec/spec_helper.rb</code>
+                                </td>
+                                <td>
+                                    <code>test/test_helper.exs</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>spec/example_spec.rb</code>
+                                </td>
+                                <td>
+                                    <code>test/example_test.exs</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Both <code>bundle gem</code> and <code>mix new</code> handle git ignores, a stubbed
+                                packaging file, versioning, README, and tests.
+                            </p>
+                            <p>
+                                In version 1.10, bundler really stepped up its game and now prompts for Code-of-Conduct
+                                (COC), license, and automatically generates a <code>.travis.yml</code> for travis-ci.org
+                            </p>
+                            <p>
+                                Unlike bundler's Gemfile and and rubygems' gemspec, there is not split packaging
+                                and dependency management in Elixir: everything is in <code>mix.exs</code>.
+                                Additionally, the version of the project is stored directly in the <code>mix.exs</code>
+                                instead of being in a separate file like <code>lib/example/version.rb</code>.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-packaging">
+                        <h1>Packaging</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'example/version'
+
+Gem::Specification.new do |spec|
+  spec.name          = "example"
+  spec.version       = Example::VERSION
+  spec.authors       = ["Luke Imhoff"]
+  spec.email         = ["luke_imhoff@rapid7.com"]
+
+  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
+  spec.description   = %q{TODO: Write a longer description or delete this line.}
+  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.license       = "MIT"
+
+  spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
+  spec.bindir        = "exe"
+  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.require_paths = ["lib"]
+
+  spec.add_development_dependency "bundler", "~> 1.10"
+  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rspec"
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+defmodule Example.Mixfile do
+  use Mix.Project
+
+  def project do
+    [app: :example,
+     version: "0.0.1",
+     elixir: "~> 1.0",
+     deps: deps]
+  end
+
+  def application do
+    [applications: [:logger]]
+  end
+
+  defp deps do
+    []
+  end
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                As you can see at the top of mix.exs, it is a standard Elixir module and under the
+                                project's Example namespace, so the version can be extracted from
+                                Example.Mixfile.project at runtime without the new for a separate version file like
+                                Ruby's lib/example/version.rb constants.
+                            </p>
+                            <p>
+                                The app keyword in the project function gives the entirety of this project a name that
+                                can be used to include this project in other project releases.  The applications list
+                                in the applications function list the applications this project depends on at runtime.
+                                In Erlang and Elixir, applications are libraries or trees of VM processes that are
+                                started as a group to provide some service to other applications.
+                            </p>
+                            <p>
+                                The version keyword in the project function sets the name of this project when it is
+                                released as an application or published to hex.
+                            </p>
+                            <p>
+                                hex.pm is the Elixir equivalent of rubygems.org.
+                            </p>
+                            <p>
+                                The deps function lists the dev, prod, and/or test compile time dependencies.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-dependency-source">
+                        <h1>Dependency - Source</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th rowspan="2">Source</th>
+                                <th colspan="2">Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <code>*.gemspec</code>
+                                </th>
+                                <th>
+                                    <code>Gemfile</code>
+                                </th>
+                                <th>
+                                    <code>mix.exs</code>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>
+                                    Packager
+                                </th>
+                                <td>
+                                    <code>spec.add_runtime_dependency 'mydep', '~> 1.2.3'</code>
+                                </td>
+                                <td>
+                                    <code>gem 'mydep', '~> 1.2.3'</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, "~> 0.3.0"}</code>*
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Github
+                                </th>
+                                <td>
+                                    &#10060;
+                                </td>
+                                <td>
+                                    <code>gem 'mydep', github: 'myorg/mydep', tag: 'v1.2.3'</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, github: 'myorg/mydep', tag: "v1.2.3"}</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    Path
+                                </th>
+                                <td>
+                                    &#10060;
+                                </td>
+                                <td>
+                                    <code>gem 'mydep', path: 'path/to/mydep'</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, path: "path/to/mydep"</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            *All mix dependencies are added to the <code>[]</code> in
+                            <code>Example.MixFile.deps/0</code>
+                        </p>
+                        <aside class="notes">
+                            <p>
+                                Because rubygems and bundler grew up after Ruby was started, their individual
+                                responsibilities for dependencies overlap.
+                            </p>
+                            <p>
+                                Mix, on the other hand, was in Elixir from the beginning, and so the deps function
+                                handles all sources.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-dependency-environment">
+                        <h1>Dependency - Environment</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th rowspan="2">Environment</th>
+                                <th colspan="2">Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <code>*.gemspec</code>
+                                </th>
+                                <th>
+                                    <code>Gemfile</code>
+                                </th>
+                                <th>
+                                    <code>mix.exs</code>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th>development</th>
+                                <td>
+                                    <code>spec.add_development_dependency 'mydep', '~> 1.2.3'</code>
+                                </td>
+                                <td>
+                                    <code>gem 'mydep', '~> 1.2.3', group: :development</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, '~> 1.2.3', only: :dev}</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>test</th>
+                                <td>
+                                    &10060;
+                                </td>
+                                <td>
+                                    <code>gem 'mydep', '~> 1.2.3', group: :test</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, '~> 1.2.3', only: :test}</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>
+                            *All mix dependencies are added to the <code>[]</code> in
+                            <code>Example.MixFile.deps/0</code>
+                        </p>
+                    </section>
+                    <section id="project-dependency-advanced-features">
+                        <h1>Dependency - Advanced Features</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Optional</td>
+                                <td>
+                                    <code>group optional: true</code>
+                                </td>
+                                <td>
+                                    <code>{:mydep, '1.2.3', optional: true}</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Override</td>
+                                <td>
+                                    <a href="https://github.com/bundler/bundler-features/issues/20">&#10060;</a>
+                                </td>
+                                <td>
+                                    <code>{:mydep, '1.2.3', override: true}</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                If you're only Bundler 1.10+, you'll have access to optional gems.  Otherwise, you
+                                only get declared, optional dependencies using Mix.
+                            </p>
+                            <p>
+                                Bundler has no mechanism for a project to override a version conflict between its
+                                dependency's dependencies.  There has been an feature request feature open for it for
+                                2 years, but its suck in debate.  Mix took the approach that a project can work out
+                                version conflicts between it dependencies by overriding them.
                             </p>
                         </aside>
                     </section>
