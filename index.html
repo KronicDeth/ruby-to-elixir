@@ -2513,7 +2513,8 @@ end
                         <aside class="notes">
                             <p>
                                 Ruby doesn't do tail call optimization unless a compilation flag is enabled when
-                                reading in code, so most Ruby code avoids recursive solutions in favor of iteration.
+                                reading in code, so most Ruby code avoids recursive solutions in favor of iteration to
+                                prevent the stack overflow as seen here.
                             </p>
                             <p>
                                 In Elixir since data is immutable, but tail calls are optimized, loops can be converted
