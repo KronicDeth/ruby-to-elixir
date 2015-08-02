@@ -135,6 +135,9 @@
                         <li>
                             <a href="#/project">Project</a>
                         </li>
+                        <li>
+                            <a href="#/code">Code</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -2037,12 +2040,55 @@ end
                     </section>
                 </section>
                 <section class="stack">
-                    <section id="elixir">
-                        <h1>Elixir</h1>
+                    <section id="code">
+                        <h1>Code</h1>
+                        <ul>
+                            <li>
+                                <a href="#/code-module">Module</a>
+                            </li>
+                            <li>
+                                <a href="#/code-writing-documentation">Writing Documentation</a>
+                            </li>
+                            <li>
+                                <a href="#/code-reading-documentation">Reading Documentation</a>
+                            </li>
+                            <li>
+                                <a href="#/code-function-overloading">Function Overloading</a>
+                            </li>
+                            <li>
+                                <a href="#/code-recursion">Recursion</a>
+                            </li>
+                        </ul>
                     </section>
-                    <section>
-                        <h1>Modules and Functions</h1>
-                        <pre><code data-trim>
+                    <section id="code-module">
+                        <h1>Module</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+module Math
+  def self.sum(a, b)
+    a + b
+  end
+
+  def self.square(x) do
+    x * x
+  end
+end
+
+Math.sum(1, 2) # 3
+Math.square 3 # 9
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
 defmodule Math do
   def sum(a, b) do
     a + b
@@ -2055,15 +2101,115 @@ end
 
 Math.sum(1, 2) # 3
 Math.square 3 # 9
-                        </code></pre>
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <aside class="notes">
-                            Code is defined in Modules with <code>defmodule</code>.  Functions are defined with
-                            <code>def</code>.  Functions are called as <code>Module</code>.<code>function</code>.
-                            Parentheses are optional.
+                            <p>
+                                So, Ruby and Elixir Modules look pretty similar.  <code>module</code> becomes
+                                <code>defmodule</code>.  There's are extra <code>do</code>s for Elixir.
+                            </p>
+                            <p>
+                                There are no objects and therefore instance methods in Elixir, so while def self dot
+                                is needed for a module method in Ruby, in Elixir def is automatically a module method.
+                            </p>
+                            <p>
+                                Like in Ruby, parentheses are optional in Elixir.
+                            </p>
                         </aside>
                     </section>
-                    <section>
-                        <h1>Pattern Matching and Guards</h1>
+                    <section id="code-writing-documentation">
+                        <h1>Writing Documentation</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+# Simple math functions
+module Math
+  # Sums two numbers.
+  #
+  # @param a [Number]
+  # @param b [Number]
+  # @return [Number] Sum of `a` and `b`
+  def self.sum(a, b)
+    a + b
+  end
+
+  # Multiplies `x` by itself.
+  #
+  # @param x [Number]
+  # @return [Number]
+  def self.square(x) do
+    x * x
+  end
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+defmodule Math do
+  @moduledoc "Simple math functions"
+
+  @doc "Sums two numbers."
+  @spec sum(number, number) :: number
+  def sum(a, b) do
+    a + b
+  end
+
+  @doc "Multiplies `x` by itself."
+  @spec square(number) :: number
+  def square(x) do
+    x * x
+  end
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                In Ruby, I'm using YARD docs because it's more structured and feature rich than rdoc.
+                            </p>
+                            <p>
+                                While YARD docs are stuck in the comments.  Documentation and types annotations are
+                                first class and retained in the compiled Module beam file.  You can access the help
+                                in iex with the h/1 function.  If you want to generate html, you can use the ex_doc
+                                package and publish docs to hexdocs.pm.
+                            </p>
+                            <p>
+                                Docs are pushed to hexdocs.pm from your computer instead of being automatically generated
+                                like on rubydoc.info, so you can do things you can do on rubydoc.info like publish docs
+                                for a private package OR generate docs using your own plugins, which are blocked from
+                                running on rubydoc.info.
+                            </p>
+                            <p>
+                                The type annotations are optional, but if given can be used with dialyzer to check if
+                                the types given match the expected and returned values from the real functions and
+                                any functions that call the functons using a strategy called success typing.
+                            </p>
+                            <p>
+                                Giving the specs here is mostly a form of documentation, so callers for the code know
+                                that it works on both floats and integers.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="code-reading-documentation">
+                        <h1>Reading Documentation</h1>
+                        <img src="images/math-help.png"/>
+                        <img src="images/math-spec.png"/>
+                    </section>
+                    <section id="code-function-overloading">
+                        <h1>Function Overloading</h1>
                         <pre><code data-trim>
 defmodule Geometry do
   def area({:rectangle, w, h}) do
@@ -2087,9 +2233,33 @@ Geometry.area({:circle, 3})       #=> 28.25999999999999801048
                             expressed directly in the pattern shape.
                         </aside>
                     </section>
-                    <section>
+                    <section id="code-recursion">
                         <h1>Recursion</h1>
-                        <pre><code data-trim>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+def sum_array(array, acc)
+  if array.length > 0
+    head, *tail = array
+    sum_array(tail, acc + head)
+  else
+    acc
+  end
+end
+
+sum_array((0..9000).to_a, 0) # SystemStackError: stack level too deep
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
 defmodule Recursion do
   def sum_list([head | tail], acc) do
     sum_list(tail, acc + head)
@@ -2100,16 +2270,33 @@ defmodule Recursion do
   end
 end
 
-Recursion.sum_list([1,2,3], 0) #=> 6
-                        </code></pre>
+0..9000 |> Enum.to_list |> Recursion.sum_list(0) # 40504500
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                         <aside class="notes">
-                            Since data is immutable, but tail calls are optimized, loops can be converted to tail recursive
-                            calls where the result of the loop is carried in an accumulator.  The base case of the loop is
-                            then to return the accumulator.  Having the base case in a separate function clause makes it much
-                            more obvious that the passed in value will be the return when the list is empty than when using
-                            a <code>for</code> loop or recursion with <code>if</code> statements in an imperative language.
+                            <p>
+                                Ruby doesn't do tail call optimization unless a compilation flag is enabled when
+                                reading in code, so most Ruby code avoids recursive solutions in favor of iteration.
+                            </p>
+                            <p>
+                                In Elixir since data is immutable, but tail calls are optimized, loops can be converted
+                                to tail recursive calls where the result of the loop is carried in an accumulator.  The
+                                base case of the loop is then to return the accumulator.  Having the base case in a
+                                separate function clause makes it much more obvious that the passed in value will be the
+                                return when the list is empty than when using a <code>for</code> loop or recursion with
+                                <code>if</code> statements in an imperative language.
+                            </p>
                         </aside>
                     </section>
+                </section>
+                <section class="stack">
+                    <section id="elixir">
+                        <h1>Elixir</h1>
+                    </section>
+
                     <section>
                         <h1>Concurrency</h1>
                         <pre><code data-trim>
@@ -2170,23 +2357,6 @@ iex> flush
                             <li><a href="#/ex_unit">ExUnit</a></li>
                             <li><a href="#/ex_doc">ExDoc</a></li>
                         </ul>
-                    </section>
-                    <section id="mix">
-                        <h1>Mix</h1>
-                        <h2>Rake + Bundler</h2>
-                        <ul>
-                            <li>Create projects</li>
-                            <li>Manages dependencies</li>
-                            <li>Compiles code and dependencies</li>
-                            <li>Runs tests</li>
-                        </ul>
-                        <aside class="notes">
-                            The Erlang ecosystem for build tools is split between 3 different tools.  It has no package
-                            manager or package repository like rubygems.org.  Elixir on the other hand has
-                            <code>mix</code> for managing dependencies and <code>hex.pm</code> for package hosting.
-                            <code>hex</code> has caught on so well, the next generation Erlang build tool,
-                            <code>rebar3</code> will support <code>hex</code> packages.
-                        </aside>
                     </section>
                     <section id="ex_unit">
                         <h1>ExUnit</h1>
