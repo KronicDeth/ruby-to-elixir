@@ -2549,6 +2549,9 @@ end
                             <li>
                                 <a href="#/testing-coverage">Coverage</a>
                             </li>
+                            <li>
+                                <a href="#/testing-documentation-examples">Documentation Examples</a>
+                            </li>
                         </ul>
                     </section>
                     <section id="testing-frameworks">
@@ -2885,6 +2888,67 @@ mix coveralls.travis
                                 Ruby can only generate coverage reports if simplecov is installed, but simplecov's
                                 reporter add the ability to mark lines as ignored for coverage calculations.  Elixir's
                                 excoveralls added stop-words, which allow lines with those words to be ignored.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="testing-documentation-examples">
+                        <h1>Testing Documentation Examples</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Commands</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+# lib/example.rb
+defmodule Example
+  @doc """
+  Calculates line number
+
+  ## Examples
+
+      iex> Example.line(1, 2)
+      3
+
+  """
+  def line(start, offset) do
+    # correct for lines being 1-index to user
+    start + offset + 1
+  end
+end
+                                    </code></pre>
+                                    <pre><code class="elixir" data-trim>
+# test/example_test.ex
+defmodule ExampleTest do
+  use ExUnit.Case, async: true
+  doctest Example
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="zsh" data-trim>
+mix test
+                                    </code></pre>
+                                    <img src="images/mix-test-doctest.png" style="width: 100%; height: 100%"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <aside class="notes">
+                            <p>
+                                One of the hardest things in a project is keeping documentation up-to-date.  Out of
+                                date documentation makes your project harder to use as it can confuse the developer.
+                                Documentation with examples is better as it goes behind same API descriptions, but
+                                those examples can quickly get out-of-date.
+                            </p>
+                            <p>
+                                To ensure that examples are correct, ExUnit has doc test, which can read all the
+                                examples in a module
                             </p>
                         </aside>
                     </section>
