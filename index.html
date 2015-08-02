@@ -138,6 +138,9 @@
                         <li>
                             <a href="#/code">Code</a>
                         </li>
+                        <li>
+                            <a href="#/testing">Testing</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -2523,6 +2526,365 @@ end
                                 separate function clause makes it much more obvious that the passed in value will be the
                                 return when the list is empty than when using a <code>for</code> loop or recursion with
                                 <code>if</code> statements in an imperative language.
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
+                    <section id="testing">
+                        <h1>Testing</h1>
+                        <ul>
+                            <li>
+                                <a href="#/testing-frameworks">Frameworks</a>
+                            </li>
+                            <li>
+                                <a href="#/testing-helper">Helper</a>
+                            </li>
+                            <li>
+                                <a href="#/testing-file">File</a>
+                            </li>
+                            <li>
+                                <a href="#/testing-output">Output</a>
+                            </li>
+                            <li>
+                                <a href="#/testing-coverage">Coverage</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="testing-frameworks">
+                        <h1>Frameworks</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                                <th>Usage</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>minitest/unit</td>
+                                <td>ex_unit</td>
+                                <td>assertion based unit testing</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>shouldi</td>
+                                <td>Nested contexts for ex_unit</td>
+                            </tr>
+                            <tr>
+                                <td>faker</td>
+                                <td>faker</td>
+                                <td>Fake data for tests</td>
+                            </tr>
+                            <tr>
+                                <td>rspec</td>
+                                <td>espec</td>
+                                <td>BDD tests with <code>expect</code>, <code>let</code>, <code>callbacks</code></td>
+                            </tr>
+                            <tr>
+                                <td>cucumber</td>
+                                <td>white_bread</td>
+                                <td>Story-based BDD using gherkin syntax</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                For the remainder of this stack, you'll concentrate on RSpec and ExUnit because it is
+                                the two frameworks I use.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="testing-helper">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>spec/spec_helper.rb</td>
+                                <td>test/test_helper.exs</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+
+  config.mock_with :rspec do |mocks|
+    mocks.verify_partial_doubles = true
+  end
+
+  config.filter_run :focus
+  config.run_all_when_everything_filtered = true
+  config.example_status_persistence_file_path = "spec/examples.txt"
+  config.disable_monkey_patching!
+  config.warnings = true
+
+  if config.files_to_run.one?
+    config.default_formatter = 'doc'
+  end
+
+  config.profile_examples = 10
+  config.order = :random
+  Kernel.srand config.seed
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+ExUnit.start()
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                The spec slash spec helper dot R-B (<code>spec/spec_helper.rb</code>)generated by rspec
+                                dash dash init (<code>rspec --init</code>) has far more configure options than the
+                                test slash test helper dot E-X-S (<code>test/test_helper.ex</code>) generated by
+                                <code>mix new</code>.  This is probably because RSpec is an older project and has had
+                                more time to accumulate use cases that need configuration.
+                            </p>
+                            <p>
+                                The call to ExUnit.start is starting the ExUnit application's tree of VM processes.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="testing-file">
+                        <h1>Test File</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>spec/example_spec.rb</td>
+                                <td>test/example_test.exs</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <pre><code class="ruby" data-trim="">
+RSpec.describe Example do
+  it 'does not break addition' do
+    expect(
+      1 + 1
+    ).to eq(3)
+  end
+
+  it 'does not break subtraction' do
+    expect(
+      1 - 1
+    ).to eq(-1)
+  end
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim="">
+defmodule ExampleTest do
+  use ExUnit.Case,
+      async: true
+
+  test "addition" do
+    assert 1 + 1 ==
+           3
+  end
+
+  test "subtraction" do
+    assert 1 - 1 ==
+           -1
+  end
+end
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                As mentioned on the testing frameworks slide, ex_unit is closer to Miniest than RSpec,
+                                so like minitest, ExUnit uses standard modules to define the tests inside, but more
+                                like RSpec, ExUnit uses a 'test' DSL to define tests.
+                            </p>
+                            <p>
+                                While RSpec is known for its extensive expect and matcher DSL, ExUnit just uses assert
+                                and normal comparison operators.
+                            </p>
+                            <p>
+                                ExUnit, out-of-box, supports running tests in parallel using the async true option.  To
+                                get parallel tests with rspec you'll need to use the parallel_test gem, which like most
+                                things Ruby, has to spawn multiple OS processes to do parallelization.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="testing-output">
+                        <h1>Test Output</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>rake spec</code>
+                                </td>
+                                <td>
+                                    <code>mix test</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="images/rake-spec.png"/>
+                                </td>
+                                <td>
+                                    <img src="images/mix-test.png"/>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Both RSpec and ExUnit say which examples failed and on which line along with the total
+                                number of tests and failures.  Both RSpec and ExUnit says that the comparison was done
+                                with double equals (==), but only in ExUnit did I actually use double equals (==), in
+                                RSpec I had to use the E-Q matcher.
+                            </p>
+                            <p>
+                                RSpec tries to show the failing code by using the line of the call, but it only shows
+                                the expect name because RSpec reads the raw file with no understanding of the code. On
+                                the other hand, ExUnit is able to show the original code include the addition and
+                                substraction.
+                            </p>
+                            <p>
+                                Finally, running equivalent tests, ExUnit is both 4x faster at loading the tests
+                                (0.04 vs 0.15395) and takes less than a hundredth of a second while rspec takes 2
+                                hundrendths of a second.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="testing-coverage">
+                        <h1>Test Coverage</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Type</th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Built-in</td>
+                                <td>
+                                    (no builtin reporting from Coverage library)
+                                </td>
+                                <td>
+                                    <pre><code class="zsh" data-trim>
+mix test --cover
+open coverage/*.html
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Coverage report with ignores
+                                </td>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+# Gemfile
+gem 'simplecov', group: :test, require: false
+
+# spec/spec_helper.rb
+require 'simplecov'
+SimpleCov.start
+                                    </code></pre>
+                                    <pre><code class="zsh" data-trim>
+rake spec
+open coverage/index.html
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+# mix.exs
+  def project do
+    [ #...
+      test_coverage: [tool: ExCoveralls]
+    ]
+  end
+
+  def deps do
+    [{:excoveralls, only: :test}]
+  end
+
+                                    </code></pre>
+                                    <pre><code class="zsh" data-trim>
+mix test
+mix coveralls.detail
+                                    </code> </pre>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Upload coverage reports<br/>
+                                    to Coveralls.io</br>
+                                    from Travis-CI.org
+                                </td>
+                                <td>
+                                    <pre><code class="ruby" data-trim>
+# Gemfile
+gem 'coveralls', group: :test, require: false
+
+# spec/spec_helper.rb
+require 'coveralls'
+Coveralls.wear!
+                                    </code></pre>
+                                    <pre><code class="zsh" data-trim>
+rake spec
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+# mix.exs
+  def project do
+    [ #...
+      test_coverage: [tool: ExCoveralls]
+    ]
+  end
+
+  def deps do
+    [{:excoveralls, only: :test}]
+  end
+                                    </code></pre>
+                                    <pre><code class="zsh" data-trim>
+mix coveralls.travis
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Both Ruby and Elixir have a built-in coverage library, but only Elixir can generate
+                                reports using it when running mix test dash dash cover (<code>mix test --cover</code>).
+                            </p>
+                            <p>
+                                Ruby can only generate coverage reports if simplecov is installed, but simplecov's
+                                reporter add the ability to mark lines as ignored for coverage calculations.  Elixir's
+                                excoveralls added stop-words, which allow lines with those words to be ignored.
                             </p>
                         </aside>
                     </section>
