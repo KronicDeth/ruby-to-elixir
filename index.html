@@ -1616,6 +1616,9 @@ end
                         <h1>Project</h1>
                         <ul>
                             <li>
+                                <a href="#/project-tools">Tools</a>
+                            </li>
+                            <li>
                                 <a href="#/project-new">New</a>
                             </li>
                             <li>
@@ -1637,6 +1640,178 @@ end
                         <aside class="notes">
                             <p>
                                 Let's start from the a clean state and say we're creating a new project.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="project-tools">
+                        <h1>Tools</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                                <th>Ruby</th>
+                                <th>Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <code>gem list</code>
+                                </td>
+                                <td>
+                                    <code>mix archive</code>
+                                </td>
+                                <td>
+                                    <code>bundle help</code>
+                                </td>
+                                <td>
+                                    <code>mix help</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>gem build *.gemspec</code>
+                                </td>
+                                <td>
+                                    <code>mix archive.build</code>
+                                </td>
+                                <td>
+                                    <code>gem help</code>
+                                </td>
+                                <td>
+                                    <code>mix help</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>gem install *.gem</code>
+                                </td>
+                                <td>
+                                    <code>mix archive.install</code>
+                                </td>
+                                <td>
+                                    <code>rake -T</code>
+                                </td>
+                                <td>
+                                    <code>mix help</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>gem uninstall NAME</code>
+                                </td>
+                                <td>
+                                    <code>mix archive.uninstall NAME</code>
+                                </td>
+                                <td>
+                                    <code>bundle outdated</code>
+                                </td>
+                                <td>
+                                    <code>mix hex.outdated</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rm *.gem</code>
+                                </td>
+                                <td>
+                                    <code>mix clean</code>
+                                </td>
+                                <td>
+                                    <code>gem owner</code>
+                                </td>
+                                <td>
+                                    <code>mix hex.owner</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>bundle list</code>
+                                </td>
+                                <td>
+                                    <code>mix deps</code>
+                                </td>
+                                <td>
+                                    <code>gem push</code>
+                                </td>
+                                <td>
+                                    <code>mix hex.publish</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>bundle install</code>
+                                </td>
+                                <td>
+                                    <code>mix deps.get</code>
+                                </td>
+                                <td>
+                                    <code>gem query</code>
+                                </td>
+                                <td>
+                                    <code>mix hex.search</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>rm Gemfile.lock</code>
+                                </td>
+                                <td>
+                                    <code>mix deps.unlock --all</code>
+                                </td>
+                                <td>
+                                    <code>bundle gem</code>
+                                </td>
+                                <td>
+                                    <code>mix new</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>bundle update</code>
+                                </td>
+                                <td>
+                                    <code>mix deps.update --all</code>
+                                </td>
+                                <td>
+                                    <code>
+                                        rake spec
+                                    </code>
+                                </td>
+                                <td>
+                                    <code>
+                                        mix test
+                                    </code>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <td>
+                                    <code>rake TASK1 TASK2</code>
+                                </td>
+                                <td>
+                                    <code>mix do TASK1 TASK2</code>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Unlike Ruby, where you need to know whether to use <code>bundle</code>,
+                                <code>gem</code>, or <code>rake</code>, everything is a <code>mix</code> task in Elixir.
+                            </p>
+                            <p>
+                                Mix tasks are namespaced just like rake taks, but mix task use dot (.) instead of colon
+                                (:).
+                            </p>
+                            <p>
+                                Most of the <code>gem</code> command map to <code>mix archive</code> namespace tasks.
+                                Most <code>bundle</code> commands map to <code>mix deps</code>, except for
+                                <code>outdated</code>, which is mix hex dot outdated.
+                            </p>
+                            <p>
+                                Any <code>gem</code> commands interacting with rubygems.org are mapped to
+                                <code>mix hex</code> tasks because the rubygems.org equivalent is hex.pm.
                             </p>
                         </aside>
                     </section>
