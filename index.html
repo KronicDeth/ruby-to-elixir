@@ -141,6 +141,9 @@
                         <li>
                             <a href="#/testing">Testing</a>
                         </li>
+                        <li>
+                            <a href="#/metaprogramming">Metaprogramming</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -3073,6 +3076,378 @@ mix test
                     </section>
                 </section>
                 <section class="stack">
+                    <section id="metaprogramming">
+                        <h1>Metaprogramming</h1>
+                        <ul>
+                            <li>
+                                <a href="#/metaprogramming-macros">Macros</a>
+                            </li>
+                            <li>
+                                <a href="#/metaprogramming-keywords">Keywords</a>
+                            </li>
+                            <li>
+                                <a href="#/metaprogramming-blocks">Blocks</a>
+                            </li>
+                            <li>
+                                <a href="#/metaprogramming-ast-capture">AST Capture</a>
+                            </li>
+                            <li>
+                                <a href="#/metaprogramming-data-to-code">Data to Code</a>
+                            </li>
+                            <li>
+                                <a href="#/metaprogramming-operators">Operators</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="metaprogramming-macro-overview">
+                        <h1>Macros</h1>
+                        <ul>
+                            <li>Run at compile</li>
+                            <li>Any valid Elixir code</li>
+                            <li>Captures and transforms AST</li>
+                        </ul>
+                    </section>
+                    <section id="metaprogramming-keywords">
+                        <h1>Keywords</h1>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th colspan="2">Ruby</th>
+                                <th colspan="2">Elixir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <!-- alias is keyword in both -->
+                            <tr>
+                                <td>
+                                    <code>and</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>and</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <!-- begin in Ruby and try in Elixir are keywords -->
+                            <!-- break has no equivalent in Elixir -->
+                            <!-- case is a keyword in both -->
+                            <!-- class has no equivalent in Elixir -->
+                            <tr>
+                                <td>
+                                    <code>def</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>def</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <!-- defined has no equivalent in Elixir -->
+                            <!-- do is a keyword in both -->
+                            <!-- else is a keyword in both -->
+                            <!-- elsif has no equivalent in Elixir -->
+                            <!-- end is keyword in both -->
+                            <!-- ensure in Ruby and after in Elixir are keywords -->
+                            <!-- false is a keyword in both -->
+                            <!-- for is a keyword in both -->
+                            <tr>
+                                <td>
+                                    <code>if</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>if</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>in</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>in</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>module</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>defmodule</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <!-- next has no equivalent in Elixir -->
+                            <!-- nil is a keyword in both -->
+                            <tr>
+                                <td>
+                                    <code>not</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>not</code>
+                                </td>
+                                <td>Function</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>or</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>or</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <!-- redo has no equivalent in Elixir -->
+                            <!-- rescue is a keyword in both -->
+                            <!-- retry has no equivalent in Elixir -->
+                            <!-- return has no equivalent in Elixir -->
+                            <tr>
+                                <td>
+                                    <code>self</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>self</code>
+                                </td>
+                                <td>Function</td>
+                            </tr>
+                            <!-- super has no equivalent in Elixir -->
+                            <!-- then has no equivalent in Elixir -->
+                            <!-- true is a keyword in both -->
+                            <!-- under has no equivalent in Elixir -->
+                            <tr>
+                                <td>
+                                    <code>unless</code>
+                                </td>
+                                <td>Keyword</td>
+                                <td>
+                                    <code>unless</code>
+                                </td>
+                                <td>Macro</td>
+                            </tr>
+                            <!-- until has no equivalent in Elixir -->
+                            <!-- when is keyword in both -->
+                            <!-- while has no equivalent in Elixir -->
+                            <!-- yield has no equivalent in Elixir -->
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                Ruby prides itself on its ability to support metaprogramming and DSLs, but Ruby still
+                                has lots of keywords.  The behavior of those keywords can't be overridden with
+                                metaprogramming.
+                            </p>
+                            <p>
+                                Ruby's keywords can be summarized as if code needs to be prevented from running or if
+                                it's hidden in the VM, then make it a keyword.  Many of the keywords in Ruby didn't have
+                                to be keywords, they could have just been implemented as methods that took blocks, but
+                                it would have been slower because blocks are a runtime construct.
+                            </p>
+                            <p>
+                                Elixir's blocks on the other handle are compiletime constructs, so they can be used for
+                                seeming language keywords like <code>and</code>, <code>def</code>, <code>if</code>,
+                                <code>defmodule</code>, <code>or</code>, and <code>unless</code>.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="metaprogramming-blocks">
+                        <h1>Blocks</h1>
+                        <table class="stretch">
+                            <thead>
+                            <tr>
+                                <th>Block</th>
+                                <th>Keyword List</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+require MyModule
+MyModule.my_def foo do
+  IO.puts "It works!"
+rescue
+  IO.puts "Rescued!"
+catch
+  IO.puts "Caught!"
+else
+  IO.puts "Otherwise!"
+after
+  IO.puts "Afterwards!
+end
+                                    </code></pre>
+                                </td>
+                                <td>
+                                    <pre><code class="elixir" data-trim>
+require MyModule
+MyModule.my_def foo, do: IO.puts "It works",
+                     rescue: IO.puts "Rescued!",
+                     catch: IO.puts "Caught!",
+                     else: IO.puts "Otherwise!",
+                     after: IO.puts "Afterwards!
+                                    </code></pre>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <aside class="notes">
+                            <p>
+                                It's important to know that some keywords, such as <code>after</code>,
+                                <code>catch</code>, <code>else</code>, <code>rescue</code> are allowed in any block.
+                                They aren't restricted to just <code>try</code> blockss.
+                            </p>
+                            <p>
+                                It is up to each macro to decide what to do with each keyword.  In either form,
+                                the lines of code after a keyword are passed to the macro as a keyword list with the
+                                values as AST.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="metaprogramming-ast-capture">
+                        <h1>AST Capture</h1>
+                        <pre><code class="elixir" data-trim>
+defmodule ExampleTest do
+  use ExUnit.Case
+
+  test "the truth" do
+    assert 1 + 1 != 2
+  end
+end
+                        </code></pre>
+                        <img src="images/ex_unit-ast.png" style="height: auto; width: 100%"/>
+                        <aside class="notes">
+                            <p>
+                                The AST for the code in the <code>do</code> block is not only captured, but all
+                                arguments to a macro.
+                            </p>
+                            <p>
+                                Capturing all the arguments and allow no parentheses calls is how <code>assert</code> is
+                                able to report the failing code in ExUnit.
+                            </p>
+                            <p>
+                                Behind the scenes assert/1 is a single macro that pattern matches based on the AST for
+                                all the known operators.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="metaprogramming-data-to-code">
+                        <h2>Compile Data into Code</h2>
+                        <pre class="stretch"><code data-trim>
+defmodule MimeTypes do
+  HTTPotion.start
+  HTTPotion.Response[body: body] = HTTPotion.get(
+    "http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types"
+  )
+
+  Enum.each String.split(body, %r/\n/), fn (line) ->
+    unless line == "" or line =~ %r/^#/ do
+      [ mimetype | _exts ] = String.split(line)
+
+
+      def is_valid?(unquote(mimetype)), do: true
+    end
+  end
+
+  def is_valid?(_mimetype), do: false
+end
+
+MimeTypes.is_valid?("application/vnd.exn") #=> false
+MimeTypes.is_valid?("application/json")    #=> true
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                Remember, I said any valid Elixir code can be run at compile time.  This means that
+                                we can go to an external resource and transform data into code.
+                            </p>
+                            <p>
+                                Here, we download the list of know mime-types and create functions that match the known
+                                names. This way, the compiler can optimize the lookup based on prefixes and we don't
+                                need to ship and parse a file at runtime.
+                            </p>
+                            <p>
+                                The unquote call transforms the value in the mimetype variable so it acts like the
+                                string was written inline.  You can think of unquote as as the hash curly braces (#{})
+                                of macros.  Normally, unquote an only be called inside a quote block, but unquote is
+                                allowed in function defs to allow for faster pattern matching composition.
+                            </p>
+                            <p>
+                                This approach is also used to enable Elixir to have full Unicode support including
+                                proper support for graphemes vs codepoints, such as when the accent is separate from the
+                                character being accented.  Ruby doesn't handle this part of Unicode correctly as
+                                demonstrated early.
+                            </p>
+                        </aside>
+                    </section>
+                    <section id="metaprogramming-operators">
+                        <h1>Operators</h1>
+                       <pre><code class="elixir" data-trim>
+# deeply nested function calls
+def main(argv) do
+  output(process(parse_args(argv)))
+end
+                        </code></pre>
+                        <pre><code class="elixir" data-trim>
+# single-use variables
+def main(argv) do
+  parsed_args = parse_args(argv)
+  processed = process(parsed_args)
+  output(processed)
+end
+                        </code></pre>
+                        <pre><code class="elixir" data-trim>
+# Pipes
+def main(argv) do
+  argv
+  |> parse_args
+  |> process
+  |> output
+end
+                        </code></pre>
+                        <pre><code class="elixir" data-trim>
+defmacro left |> right do
+  [{h, _}|t] = Macro.unpipe({:|>, [], [left, right]})
+  :lists.foldl fn {x, pos}, acc -> Macro.pipe(acc, x, pos) end, h, t
+end
+                        </code></pre>
+                        <aside class="notes">
+                            <p>
+                                I hinted to this on the AST Capture slide, but operators are captured in the AST and
+                                operators can be redefined because they are just macros.
+                            </p>
+                            <p>
+                                All state has to be returned from functions if not passing messages, and IO is passing
+                                messages, so that means function calls have to take the output of a previous function,
+                                so we'd either have to deeply nest function calls, or use variables that are assigned on
+                                one line and used only on the next, but thinking about how *nix shells work, we could
+                                instead make a pipeline.
+                            </p>
+                            <p>
+                                The pipe greater than (<code>|></code>) symbol is called the pipeline operator because
+                                it allows you to pipe the output of one function to the input of the next function in
+                                the pipeline.
+                            </p>
+                            <p>
+                                The Macro dot unpipe (<code>Macro.unpipe</code>) turns the nested binary operations
+                                involving the pipeline operator into a flat list of function call ASTs.
+                            </p>
+                            <p>
+                                The Macro dot pipe (<code>Macro.pipe</code>) function just handles whether the next
+                                function's is argument less (as in the example) and needs to convert it to have an
+                                argument list or already has an argument list and needs to prepend the pipeline's output
+                                as the first argument.
+                            </p>
+                            <p>
+                                The lists dot foldl (:list.foldl)
+                            </p>
+                        </aside>
+                    </section>
+                </section>
+                <section class="stack">
                     <section id="elixir">
                         <h1>Elixir</h1>
                     </section>
@@ -3113,182 +3488,12 @@ iex> flush
                         </aside>
                     </section>
                 </section>
-                <section class="stack">
-                    <section id="why-elixir-and-not-erlang">
-                        <h1>Why Elixir and not Erlang?</h1>
-                        <ul>
-                            <li><a href="#/metaprogramming">Metaprogramming</a></li>
-                        </ul>
-                        <aside class="notes">
-                            Everything I've shown so far in Elixir can be accomplished in Erlang with only a change in
-                            Syntax, so the question becomes why use Elixir instead of Erlang?  It comes down to the
-                            three main features José Valim wanted to added to Erlang when making Elixir: tooling,
-                            metaprogramming, and polymorphism.
-                        </aside>
-                    </section>
-                </section>
-                <section class="stack">
-                    <section id="metaprogramming">
-                        <h1>Erlang Macros vs Elixir Macros</h1>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>Erlang</th>
-                                <th>Elixir</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>Run when?</td>
-                                <td>Preprocess</td>
-                                <td>Compile</td>
-                            </tr>
-                            <tr>
-                                <td>Code generation</td>
-                                <td>String substitution</td>
-                                <td>AST manipulation</td>
-                            </tr>
-                            <tr>
-                                <td>Language Features</td>
-                                <td>Functions with Arguments</td>
-                                <td>Full</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <aside class="notes">
-                            When programming Ruby, we're used to being able to use blocks with class-level methods to
-                            call and write DSLs to define code for us.  In Erlang, the macros can only do string
-                            substitution like the C preprocessor, but Elixir gives access to the full language and
-                            allows manipulating the Abstract Syntax Tree, which means we can delay execution just like
-                            passing blocks in Ruby.
-                        </aside>
-                    </section>
-                    <section>
-                        <h1>Elixir Macros</h1>
-                        <pre><code data-trim>
-defmodule ElixirLunchAndLearnTest do
-  use ExUnit.Case
-
-  test "the truth" do
-    assert 1 + 1 != 2
-  end
-end
-                        </code></pre>
-                        <aside class="notes">
-                            Looking at this, it looks a lot like a DSL for ruby with <code>do</code>do blocks, but
-                            <code>defmodule</code> is not a keyword in Elixir equivalent to <code>module</code> in Ruby
-                            or <code>class</code> in Java, instead <code>defmodule</code> is a macro. Defined as normal
-                            Elixir code that is run at compile time. The same with `use`, `test`, and `assert`.
-                        </aside>
-                    </section>
-                    <section>
-                        <h1>Capture Code</h1>
-                        <img src="images/macros.png"/>
-                        <aside class="notes">
-                            With macros Elixir can do what most languages do with keywords, but those macros can
-                            manipulate other code.  For example, the line with <code>assert</code> is able to give the
-                            actual code run that got the error.
-                        </aside>
-                    </section>
-                    <section>
-                        <h2>Compile Data into Code</h2>
-                        <pre class="stretch"><code data-trim>
-defmodule MimeTypes do
-  HTTPotion.start
-  HTTPotion.Response[body: body] = HTTPotion.get(
-    "http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types"
-  )
-
-  Enum.each String.split(body, %r/\n/), fn (line) ->
-    unless line == "" or line =~ %r/^#/ do
-      [ mimetype | _exts ] = String.split(line)
-
-
-      def is_valid?(unquote(mimetype)), do: true
-    end
-  end
-
-  def is_valid?(_mimetype), do: false
-end
-
-MimeTypes.is_valid?("application/vnd.exn") #=> false
-MimeTypes.is_valid?("application/json")    #=> true
-                        </code></pre>
-                        <aside class="notes">
-                            <p>
-                                Here, we download the list of know mime-types and create functions that match the known names.
-                                This way, the compiler can optimize the lookup based on prefixes and we don't need to ship
-                                and parse a file at runtime.
-                            </p>
-                            <p>
-                                This approach is also used to enable Elixir to have full Unicode
-                                support including proper support for graphemes vs codepoints, such as when the accent is
-                                separate from the character being accented.  Ruby doesn't handle this part of Unicode
-                                correctly, which may become important as meterpreter adds unicode support.
-                            </p>
-                        </aside>
-                    </section>
-                </section>
                 <section id="examples">
                     <h1>Examples</h1>
                     <ol>
-                        <li><a href="#/pipes">Pipes</a></li>
                         <li><a href="#/fizz-buzz">FizzBuzz</a></li>
                         <li><a href="#/process-scaling">Process Scaling</a></li>
                     </ol>
-                </section>
-                <section class="stack">
-                    <section>
-                        <h1>Pipes</h1>
-                        <ul>
-                            <li>Eliminate deeply nested function calls</li>
-                            <li>Eliminate throw-away temporary variables</li>
-                            <li>Write shell-style pipelines between functions</li>
-                        </ul>
-                    </section>
-                    <section>
-                        <pre><code data-trim>
-# deeply nested function calls
-def main(argv) do
-  output(process(parse_args(argv)))
-end
-                        </code></pre>
-                        <pre><code data-trim>
-# single-use variables
-def main(argv) do
-  parsed_args = parse_args(argv)
-  processed = process(parsed_args)
-  output(processed)
-end
-                        </code></pre>
-                        <pre><code data-trim>
-# Pipes
-def main(argv) do
-  argv
-  |> parse_args
-  |> process
-  |> output
-end
-                        </code></pre>
-                        <aside class="notes">
-                            <p>
-                                All state has to be returned from functions if not passing messages, and IO is passing
-                                messages, so that means function calls have to take the output of a previous function,
-                                so we'd either have to deeply nest function calls, or use variables that are assigned on
-                                one line and used only on the next, but thinking about how *nix shells work, we could
-                                instead make a pipeline.
-                            </p>
-                            <p>
-                                The <code>|></code> operator takes the left operand and passes it as the first argument
-                                of the right operand.  Just like piping stdout to stdin in a shell.
-                            </p>
-                            <p>
-                                Like most of the cool features of Elixir, the <code>|></code> operator is a macro that
-                                just rearranges the pipeline back to the deeply nested function call form.
-                            </p>
-                        </aside>
-                    </section>
                 </section>
                 <section id="fizz-buzz">
                     <h1>If-less fizz-buzz</h1>
