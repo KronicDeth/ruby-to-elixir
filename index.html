@@ -146,6 +146,9 @@
                         <li>
                             <a href="#/metaprogramming">Metaprogramming</a>
                         </li>
+                        <li>
+                            <a href="#/concurrency">Concurrency</a>
+                        </li>
                     </ol>
                 </section>
                 <section class="stack">
@@ -233,8 +236,8 @@
                             </p>
                             <p>
                                 On the other hand, Elixir uses the Erlang VM, which thanks to the immutable data, can run
-                                isolated processes inside the VM so fast and so cheaply that my laptop can run 1 million
-                                processes in 11 seconds with processes distributed across all 4 cores.
+                                isolated processes inside the VM so fast and so cheaply that my laptop can use as many
+                                as I want effectively and use a separate one for each logically concurrent task.
                             </p>
                             <p>
                                 Just as you learned imperative programming over mathematical thinking, you can retrain
@@ -3450,12 +3453,22 @@ end
                     </section>
                 </section>
                 <section class="stack">
-                    <section id="elixir">
-                        <h1>Elixir</h1>
-                    </section>
-
-                    <section>
+                    <section id="concurrency">
                         <h1>Concurrency</h1>
+                        <ul>
+                            <li>
+                                <a href="#/concurrency-message-passing">Message Passing</a>
+                            </li>
+                            <li>
+                                <a href="#/concurrency-memory">Memory</a>
+                            </li>
+                            <li>
+                                <a href="#/concurrency-time-1">Time</a>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="concurrency-message-passing">
+                        <h1>Message Passing</h1>
                         <pre><code data-trim>
 iex> pid = spawn_link fn ->
 ...>   receive do
@@ -3471,16 +3484,13 @@ iex> flush
                         </code></pre>
                         <aside class="notes">
                             <p>
-                                The <code>fn -></code> syntax is for an anonymous function like stabby lambdas in Ruby,
-                                CoffeeScript, ES6, or lambda expressions in Java 8.
-                            </p>
-                            <p>
                                 I spawn a process passing an anonymous function and have it wait to receive
                                 <code>:ping</code>.  When it receive ping it will respond to the sender with
                                 <code>:pong</code>.  receive will wait for message to be received or pick the first
                                 message that matches from the process's mailbox.  There are no objects in Elixir, so
-                                <code>self</code> returns the current process's pid instead.  <code>flush</code> dumps
-                                the current processes mailbox without needing to use <code>receive</code>.
+                                <code>self</code> returns the current process's process id, or pid, instead.
+                                <code>flush</code> dumps the current processes mailbox without needing to use
+                                <code>receive</code>.
                             </p>
                             <p>
                                 Sending messages between processes is very similar to how you use <code>send</code> to
@@ -3489,23 +3499,7 @@ iex> flush
                             </p>
                         </aside>
                     </section>
-                </section>
-                <section id="examples">
-                    <h1>Examples</h1>
-                    <ol>
-                        <li><a href="#/process-scaling">Process Scaling</a></li>
-                    </ol>
-                </section>
-                <section class="stack">
-                    <section id="process-scaling">
-                        <h1>Process Scaling</h1>
-                        <aside class="notes">
-                            As I hinted at in the <a href="#/design-philosophy">Design Philosophy</a> and
-                            <a href="#/whats-app">WhatsApp</a>, but how much memory does an individual process consume and
-                            how fast can processes be spawned?
-                        </aside>
-                    </section>
-                    <section>
+                    <section id="concurrency-memory">
                         <h1>Process Memory</h1>
                         <pre><code data-trim>
 f = fn -> receive do
@@ -3517,11 +3511,27 @@ end
 bytes # 2680
                         </code></pre>
                         <aside class="notes">
-                            Elixir process is only 2680 bytes of memory.  Threads on OS X are 1KB in the kernel,
-                            512KB for the stack (can be as low as 16 KB).
+                            <p>
+                                That was fine, but couldn't you do something similar with threads and Celluloid in
+                                JRuby?
+                            </p>
+                            <p>
+                                Well, with Threads you're using more resources.
+                            </p>
+                            <p>
+                                Elixir process is only 2680 bytes of memory.  Threads on OS X are 1KB in the kernel,
+                                512KB for the stack (can be as low as 16 KB).
+                            </p>
+                            <p>
+                                I said back in the <a href="#/overview">Overview</a> that I could run as many processes
+                                as I want effectively, but how many can I really run?
+                            </p>
+                            <p>
+                                These next few slides will walk through code show how to test the limits
+                            </p>
                         </aside>
                     </section>
-                    <section>
+                    <section id="concurrency-time-1">
                         <h1>Process Time (1)</h1>
                         <pre class="stretch"><code data-trim>
 defmodule ElixirLunchAndLearn.Chain do
@@ -3535,8 +3545,8 @@ end
                             <code>run</code> will be called from the command-line and will benchmark the actual work in
                             <code>create_processes</code>.
                         </aside>
-                    </section>
-                     <section>
+                     </section>
+                    <section>
                         <h1>Process Time (2)</h1>
                         <pre class="stretch"><code data-trim>
 defmodule ElixirLunchAndLearn.Chain do
@@ -3562,8 +3572,8 @@ end
                            <code>create_processes</code> will create a chain of processes in memory, with one process
                            hooked to send to the previous process.  The chain will be started when the last process
                            in the chain is sent 0, then <code>receive</code> waits for the messages to travel back
-                           through the chain to this process it pass itself as <code>self</code> as the first process
-                           in the chain.
+                           through the chain to this process. The original process passes itself as <code>self</code> as
+                           the first process in the chain.
                        </aside>
                     </section>
                     <section>
@@ -3591,9 +3601,9 @@ Result is 1000000 (Calculated in 11658944 microseconds)
                         </code></pre>
                         <aside class="notes">
                             <p>
-                                That's 1 million processes in 11 million 658 thousand and 944 microseconds, in other words
-                                11.7 seconds.  That also means each process takes 11.7 microseconds to spawn, do its work
-                                and go on to the next.
+                                That's 1 million processes in 11 million 658 thousand and 944 microseconds, in other
+                                words 11.7 seconds.  That also means each process takes 11.7 microseconds to spawn, do
+                                its work and go on to the next.
                             </p>
                             <p>
                                 For reference, Apple's
@@ -3605,7 +3615,7 @@ Result is 1000000 (Calculated in 11658944 microseconds)
                         </aside>
                     </section>
                 </section>
-                  <section class="stack">
+                <section class="stack">
                     <section id="resources">
                         <h1>Resources</h1>
                     </section>
